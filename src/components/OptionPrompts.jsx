@@ -1,28 +1,21 @@
 import React from 'react';
+import styles from './OptionPrompts.module.css';
 
-const OptionPrompts = ({ onOptionSelect }) => {
-    const options = [
-        { label: 'Fight', value: 'fight' },
-        { label: 'Flee', value: 'flee' },
-        { label: 'Kick in the door', value: 'kick' },
-        { label: 'Look for trouble', value: 'look' },
-        { label: 'Go some direction', value: 'go' },
-    ];
-
-    return (
-        <div className="option-prompts">
-            <h3>Choose an action:</h3>
-            <ul>
-                {options.map(option => (
-                    <li key={option.value}>
-                        <button onClick={() => onOptionSelect(option.value)}>
-                            {option.label}
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+const OptionPrompts = ({ onFight, onFlee, onKickDoor, onLookForTrouble }) => (
+  <div className={styles.container}>
+    <button className={styles.button} onClick={onFight}>
+      Fight
+    </button>
+    <button className={styles.button} onClick={onFlee}>
+      Flee
+    </button>
+    <button className={styles.button} onClick={onKickDoor}>
+      Kick in the Door
+    </button>
+    <button className={styles.button} onClick={onLookForTrouble}>
+      Look for Trouble
+    </button>
+  </div>
+);
 
 export default OptionPrompts;

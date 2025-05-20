@@ -1,16 +1,13 @@
 import React from 'react';
 import styles from './CharacterInfo.module.css';
 
-const CharacterInfo = ({ character }) => {
-    return (
-        <div className={styles.characterInfo}>
-            <h2>Character Info</h2>
-            <p><strong>Name:</strong> {character.name}</p>
-            <p><strong>Class:</strong> {character.class}</p>
-            <p><strong>Level:</strong> {character.level}</p>
-            <p><strong>Gold:</strong> {character.gold}</p>
-        </div>
-    );
-};
+const CharacterInfo = ({ name, heroClass, level, gold }) => (
+  <div className={styles.container}>
+    <div className={styles.info}>Name: {name}</div>
+    <div className={styles.info}>Class: {heroClass}</div>
+    <div className={styles.info}>Level: {level}</div>
+    <div className={`${styles.info} ${styles.gold}`}>Gold: {gold}</div>
+  </div>
+);
 
 export default CharacterInfo;
