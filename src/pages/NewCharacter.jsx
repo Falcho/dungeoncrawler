@@ -41,30 +41,7 @@ const NewCharacter = () => {
                             </div>
                         ))}
                     </div>
-                </div>
-                <div className={styles.section}>
-                    <h2 className={styles.subtitle}>Choose Your Class</h2>
-                    <div className={styles.options}>
-                        <button
-                            className={`${styles.option} ${selectedClass === 'Warrior' ? styles.selected : ''}`}
-                            onClick={() => setSelectedClass('Warrior')}
-                        >
-                            Warrior
-                        </button>
-                        <button
-                            className={`${styles.option} ${selectedClass === 'Mage' ? styles.selected : ''}`}
-                            onClick={() => setSelectedClass('Mage')}
-                        >
-                            Mage
-                        </button>
-                        <button
-                            className={`${styles.option} ${selectedClass === 'Rogue' ? styles.selected : ''}`}
-                            onClick={() => setSelectedClass('Rogue')}
-                        >
-                            Rogue
-                        </button>
-                    </div>
-                </div>
+                </div>      
             </div>
             <div className={styles.buttons}>
                 <button className={styles.backButton} onClick={() => navigate('/')}>
