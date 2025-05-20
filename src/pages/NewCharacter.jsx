@@ -5,7 +5,6 @@ import styles from './NewCharacter.module.css';
 
 const NewCharacter = () => {
     const [selectedHero, setSelectedHero] = useState(null);
-    const [selectedClass, setSelectedClass] = useState('');
     const navigate = useNavigate();
 
     const handleHeroSelect = (hero) => {
@@ -13,12 +12,12 @@ const NewCharacter = () => {
     };
 
     const handleStartGame = () => {
-        if (selectedHero && selectedClass) {
-            // Logic to start the game with the selected hero and class
-            // This could involve saving the hero and class to local storage or state management
+        if (selectedHero) {
+            // Logic to start the game with the selected hero 
+            // This could involve saving the hero to local storage or state management
             navigate('/game');
         } else {
-            alert('Please select a hero and a class!');
+            alert('Please select a hero!');
         }
     };
 
