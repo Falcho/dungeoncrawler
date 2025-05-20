@@ -8,6 +8,25 @@
   color: #fff;
   text-align: center;
   padding: 2rem;
+  background-image: url('../assets/welcome-flipped.png'); /* Adjust path if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Optionally add a dark overlay for readability: */
+  position: relative;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 30, 30, 0.4); /* dark overlay */
+  z-index: 0;
+}
+
+.container > * {
+  position: relative;
+  z-index: 1;
 }
 
 .title {
