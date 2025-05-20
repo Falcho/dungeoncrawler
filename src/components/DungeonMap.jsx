@@ -1,13 +1,10 @@
 import React from 'react';
+import styles from './DungeonMap.module.css';
 
-const DungeonMap = ({ currentLocation }) => {
-    return (
-        <div className="dungeon-map">
-            <h2>Dungeon Map</h2>
-            <p>Current Location: {currentLocation}</p>
-            {/* Here you can add more details about the dungeon map, such as a visual representation */}
-        </div>
-    );
-};
+const DungeonMap = () => (
+  <div className={styles.container}>
+    <div className={styles.map}></div>
+  </div>
+);
 
 export default DungeonMap;

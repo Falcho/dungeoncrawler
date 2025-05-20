@@ -1,24 +1,41 @@
 .container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   padding: 1rem;
   background-color: #ffe6e6;
   border: 2px solid #ff4d4d;
   border-radius: 8px;
+  height: 100%;
 }
 
 .character,
 .monster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  text-align: center;
+}
+
+.image {
   width: 100px;
   height: 100px;
-  margin: 0.5rem;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .name {
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 0.25rem;
 }
 
 .level {
