@@ -61,6 +61,13 @@ export default function GameScreen() {
   const [loot, setLoot] = useState([]);
   const [eventResolved, setEventResolved] = useState(false);
 
+  const addToBattleLog = (message) => {
+    setBattleLog((prevLog) => [message, ...prevLog]);
+  }
+  const clearBattleLog = () => {
+    setBattleLog([]);
+  }
+
   const handleAction = (action) => {
     switch (gameState) {
       case "barracks":
@@ -81,45 +88,39 @@ export default function GameScreen() {
 
       case "resolveEvent":
         setEventResolved(true);
-        setBattleLog([...battleLog, "Event resolved!"]);
-        setGameState("barracks");
+        addToBattleLog('Event resolved!');
+        setGameState('barracks');
         break;
 
-      case "battleChoice":
-        if (action === "FLEE") {
-          setBattleLog([...battleLog, "You fled the battle!"]);
-        }
-        setGameState("barracks");
-        if (action === "USE_ITEM") {
+      case 'battleChoice':
+        if (action === 'FLEE') {
+          addToBattleLog('You fled the battle!');
+          setGameState('barracks');
+        if (action === 'USE_ITEM') {
           // implement item logic
         }
         if (action === "FIGHT") setGameState("autoBattle");
         break;
 
       case 'autoBattle':
-        setCharacterState((prevState) => (((autoBattler(prevState, monster, (msg) => {
-          setBattleLog((prevLog) => [msg, ...prevLog]);
-        })))));
-        console.log((autoBattler(characterState, monster, (msg) => {
-          setBattleLog((prevLog) => [msg, ...prevLog]);
-        })));
         setBattleLog([...battleLog, 'Resolving battle...']);
+        setCharacterState((prevState) => (((autoBattler(prevState, monster,addToBattleLog))));
         setGameState('battleOutcome');
         break;
 
       case 'battleOutcome':
         if (characterState.health > 0) {
-          setBattleLog([...battleLog, 'You won the battle!']);
+          addToBattleLog( 'You won the battle!');
           setGameState('loot');
         }
         else {
-          setBattleLog([...battleLog, 'You died!']);
+          addToBattleLog('You died!');
           setGameState('barracks');}
         break;
 
-      case "loot":
-        setLoot("Gold Sword"); // or dynamic value
-        setBattleLog([...battleLog, "You found loot:" + loot]);
+      case 'loot':
+        setLoot('Gold Sword'); // or dynamic value
+        addToBattleLog('You found loot:' + loot);
         // Add loot to character inventory
         setCharacterState((prevState) => ({
           ...prevState,
@@ -159,7 +160,7 @@ export default function GameScreen() {
         <div className={styles.battleArea}>
           <BattleScreen
             gameState={gameState}
-            character={character}
+            character={characterState}
             monster={monster}
           />
         </div>
