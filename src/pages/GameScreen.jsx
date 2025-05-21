@@ -124,30 +124,39 @@ export default function GameScreen() {
     }
   };
   return (
-    <div className={styles.screen}>
-      <div className={styles.background}></div>
-      <div className={styles.grid}>
-        <div className={styles.characterInfoBox}>
-          <CharacterInfo hero={characterState} loot={loot} />
+    <div className={styles.outer}>
+      <div className={styles.content}>
+        <div className={styles.sidebar}>
+          <div className={styles.characterInfoBox}>
+            <CharacterInfo hero={characterState} loot={loot} />
+          </div>
+          <div className={styles.dungeonMapBox}>
+            <DungeonMap />
+          </div>
         </div>
-        <div className={styles.dungeonMapBox}>
-          <DungeonMap />
-        </div>
-        <div className={styles.b3}>
-          <OptionPrompts gameState={gameState} handleAction={handleAction} />
-        </div>
+        <div className={styles.mainArea}>
+          <div className={styles.battleArea}>
+            <BattleScreen
+              gameState={gameState}
+              character={character}
+              monster={monster}
+            />
+            <div className={styles.wrapper}>
+              <div className={styles.battleLog}>
+                <BattleLog battleLog={battleLog} />
+              </div>
+            </div>
+            
+          </div>
 
-        <div className={styles.battleLog}>
-          <BattleLog battleLog={battleLog} />
-        </div>
-
-        {/* BattleScreen sits in the open area using grid lines */}
-        <div className={styles.battleArea}>
-          <BattleScreen
-            gameState={gameState}
-            character={character}
-            monster={monster}
-          />
+          <div className={styles.mainBottom}>
+            <div className={styles.optionPrompts}>
+              <OptionPrompts
+                gameState={gameState}
+                handleAction={handleAction}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -9,8 +9,8 @@
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr; /* Top is 1 part, bottom is 1 parts */
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto; /* Top is 1 part, bottom is 1 parts */
   gap: 0.7em;
 }
 
