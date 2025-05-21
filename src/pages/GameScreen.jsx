@@ -1,5 +1,5 @@
 // src/pages/GameScreen.jsx
-import { useState } from "react";
+import { useState } from 'react';
 import styles from "./GameScreen.module.css";
 import CharacterInfo from "../components/CharacterInfo";
 import DungeonMap from "../components/DungeonMap";
@@ -7,10 +7,11 @@ import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
 import HeroImg from "../assets/HeroWarrior.png";
-import MonsterImg from "../assets/MonsterGoblin.png";
+import GoblinImg from "../assets/MonsterGoblin.png";
 import fullhp from "../assets/fullHP2.png";
 import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
+import autoBattler from '../utils/autobattler';
 
 const character = {
    id: 1,
@@ -37,20 +38,28 @@ const character = {
     },
 };
 
-const monster = {
-  name: "Goblin",
-  level: 3,
-  image: MonsterImg,
-  health: 20,
-  maxHealth: 20,
-};
+const monster =   {
+    id: 1,
+    name: "Goblin",
+    image: GoblinImg,
+    level: 1,
+    health: 30,
+    maxHealth: 30,
+    attack: 5,
+    defense: 2,
+    experience: 10,
+    loot: {
+      gold: 5,
+      items: ["Goblin Tooth", "Old Sword"]
+    }
+  };
 
 export default function GameScreen() {
   const [characterState, setCharacterState] = useState(character);
   const [gameState, setGameState] = useState('barracks');
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
-  const [eventReolved, setEventResolved] = useState(false);
+  const [eventResolved, setEventResolved] = useState(false);
 
   const handleAction = (action) => {
     switch (gameState) {
@@ -87,16 +96,22 @@ export default function GameScreen() {
         break;
 
       case 'autoBattle':
+        setCharacterState((prevState) => (((autoBattler(prevState, monster, (msg) => {
+          setBattleLog((prevLog) => [msg, ...prevLog]);
+        })))));
+        console.log((autoBattler(characterState, monster, (msg) => {
+          setBattleLog((prevLog) => [msg, ...prevLog]);
+        })));
         setBattleLog([...battleLog, 'Resolving battle...']);
         setGameState('battleOutcome');
         break;
 
       case 'battleOutcome':
-        if (action === 'SUCCESS') {
+        if (characterState.health > 0) {
           setBattleLog([...battleLog, 'You won the battle!']);
           setGameState('loot');
         }
-        if (action === 'FAIL') {
+        else {
           setBattleLog([...battleLog, 'You died!']);
           setGameState('barracks');}
         break;
