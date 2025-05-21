@@ -1,20 +1,15 @@
-.container {
+.characterInfoContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 1rem;
-  background-color: #f4f4f4;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  font-family: 'Arial', sans-serif;
+  gap: 0.8vw;
+  font-size: 1.1vw;
 }
 
 .info {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  font-weight: bold;
+  color: #222;
 }
 
 .gold {
-  color: #d4af37;
+  color: #b49c3b;
+  font-weight: bold;
 }
