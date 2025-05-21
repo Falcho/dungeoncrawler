@@ -5,7 +5,19 @@ import styles from './NewCharacter.module.css';
 
 const NewCharacter = () => {
     const [selectedHero, setSelectedHero] = useState(null);
+    const [characterName, setCharacterName] = useState('');
     const navigate = useNavigate();
+
+    const handleNameChange = (event) => {
+        setCharacterName(event.target.value);
+    }
+    const handleNameSubmit = (event) => {
+        event.preventDefault();
+        if (characterName.trim() === '') {
+            alert('Please enter a character name!');
+            return;
+        }
+    };
 
     const handleHeroSelect = (hero) => {
         setSelectedHero(hero);
@@ -42,6 +54,22 @@ const NewCharacter = () => {
                     </div>
                 </div>      
             </div>
+            <div className={styles.nameInput}>
+                <h2 className={styles.subtitle}>Enter Character Name </h2>
+                <form onSubmit={handleNameSubmit}>
+                    <input
+                        type='text'
+                        value={characterName}
+                        onChange={handleNameChange}
+                        placeholder='Enter your character name'
+                        className={styles.input}
+                    />
+                    <button type='submit' className={styles.submitButton}>
+                        Save Name
+                    </button>
+                </form>
+            </div>
+        
             <div className={styles.buttons}>
                 <button className={styles.backButton} onClick={() => navigate('/')}>
                     Back
