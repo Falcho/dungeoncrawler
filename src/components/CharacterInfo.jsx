@@ -1,13 +1,35 @@
-import React from 'react';
-import styles from './CharacterInfo.module.css';
+import React from "react";
+import styles from "./CharacterInfo.module.css";
 
-const CharacterInfo = ({ name, heroClass, level, gold }) => (
-  <div className={styles.characterInfoContainer}>
-    <div className={styles.info}>Name: {name}</div>
-    <div className={styles.info}>Class: {heroClass}</div>
-    <div className={styles.info}>Level: {level}</div>
-    <div className={`${styles.info} ${styles.gold}`}>Gold: {gold}</div>
-  </div>
-);
+const CharacterInfo = ({ hero }) => {
+  if (!hero) return null; // In case no hero is selected yet
+
+  return (
+    <div className={styles.charGrid}>
+      <div className={styles.image}>
+        <img
+          src={hero.animations.full}
+          alt={hero.class}
+        />
+      </div>
+      <div className={styles.stats}>
+        <strong>Class:</strong> {hero.class}<br />
+        <strong>Level:</strong> {hero.level} <br />
+        <strong>Health:</strong> {hero.health} / {hero.maxHealth} <br />
+        <strong>Gold:</strong> {hero.gold}
+        <hr />
+        <strong>Attributes</strong><br />
+        STR: {hero.attributes.strength}<br />
+        AGI: {hero.attributes.agility}<br />
+        INT: {hero.attributes.intelligence}
+        <hr />
+        <strong>Equipment</strong><br />
+        Weapon: {hero.equipment?.weapon || "None"}<br />
+        Armor: {hero.equipment?.armor || "None"}
+      </div>
+      
+    </div>
+  );
+};
 
 export default CharacterInfo;

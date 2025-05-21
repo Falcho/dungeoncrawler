@@ -7,15 +7,32 @@ import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import HeroImg from "../assets/HeroWarrior.png";
 import MonsterImg from "../assets/MonsterGoblin.png";
+import fullhp from "../assets/fullHP2.png";
+import halfhp from "../assets/halfHP.png";
+import lowhp from "../assets/lowHP.png";
 
 const character = {
-  name: "Sir Choppins",
-  heroClass: "Warrior",
-  level: 5,
-  gold: 100,
-  image: HeroImg,
-  health: 30,
-  maxHealth: 30,
+   id: 1,
+    class: "Warrior",
+    level: 1,
+    gold: 0,
+    health: 30,
+    maxHealth: 30,
+    image: HeroImg,
+    animations: {
+      full: fullhp,
+      half: halfhp,
+      low: lowhp,
+    },
+    equipment: {
+      weapon: "Sword",
+      armor: "Plate Armor",
+    },
+    attributes: {
+      strength: 10,
+      agility: 5,
+      intelligence: 3,
+    },
 };
 
 const monster = {
@@ -32,7 +49,7 @@ export default function GameScreen() {
       <div className={styles.background}></div>
       <div className={styles.grid}>
         <div className={styles.b1}>
-          <CharacterInfo {...character} />
+          <CharacterInfo hero={character} />
         </div>
         <div className={styles.b2}>
           <DungeonMap />
