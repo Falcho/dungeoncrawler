@@ -5,13 +5,29 @@ import styles from './NewCharacter.module.css';
 
 const NewCharacter = () => {
     const [selectedHero, setSelectedHero] = useState(null);
+    const [characterName, setCharacterName] = useState('');
     const navigate = useNavigate();
+
+    const handleNameChange = (event) => {
+        setCharacterName(event.target.value);
+    }
+    const handleNameSubmit = (event) => {
+        event.preventDefault();
+        if (characterName.trim() === '') {
+            alert('Please enter a character name!');
+            return;
+        }
+    };
 
     const handleHeroSelect = (hero) => {
         setSelectedHero(hero);
     };
 
     const handleStartGame = () => {
+        if (characterName.trim() === '') {
+            alert('Please enter a character name!');
+            return;
+        }
         if (selectedHero) {
             // Logic to start the game with the selected hero 
             // This could involve saving the hero to local storage or state management
@@ -34,7 +50,15 @@ const NewCharacter = () => {
                                 className={`${styles.option} ${selectedHero === hero ? styles.selected : ''}`}
                                 onClick={() => handleHeroSelect(hero)}
                             >
-                                <img src={hero.animation} alt={hero.name} />
+                                <input
+                                    type='radio'
+                                    name='hero'
+                                    value={hero.id}
+                                    checked={selectedHero?.id === hero.id}
+                                    onChange={() => handleHeroSelect(hero)}
+                                    className={styles.radioInput}
+                                />
+                                <img src={hero.image} alt={hero.name} />
                                 <h2>{hero.name}</h2>
                                 <p>Class: {hero.class}</p>
                             </div>
@@ -42,6 +66,19 @@ const NewCharacter = () => {
                     </div>
                 </div>      
             </div>
+            <div className={styles.nameInput}>
+                <h2 className={styles.subtitle}>Enter Character Name </h2>
+                <form onSubmit={handleNameSubmit}>
+                    <input
+                        type='text'
+                        value={characterName}
+                        onChange={handleNameChange}
+                        placeholder='Enter your character name'
+                        className={styles.input}
+                    />
+                </form>
+            </div>
+            
             <div className={styles.buttons}>
                 <button className={styles.backButton} onClick={() => navigate('/')}>
                     Back
