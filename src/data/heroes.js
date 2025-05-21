@@ -1,3 +1,7 @@
+import WarriorImg from '../assets/select-HeroWarrior.png'
+import MageImg from '../assets/select-HeroMage.png';
+import RogueImg from '../assets/select-HeroRogue.png';
+
 const heroes = [
   {
     id: 1,
@@ -5,6 +9,7 @@ const heroes = [
     class: "Fighter",
     level: 1,
     gold: 0,
+    image: WarriorImg,
     animations: {
       idle: "animations/warrior_idle.png",
       attack: "animations/warrior_attack.png",
@@ -22,6 +27,7 @@ const heroes = [
     class: "Spellcaster",
     level: 1,
     gold: 0,
+    image: MageImg,
     animations: {
       idle: "animations/mage_idle.png",
       attack: "animations/mage_attack.png",
@@ -39,6 +45,7 @@ const heroes = [
     class: "Stealth",
     level: 1,
     gold: 0,
+    image: RogueImg,
     animations: {
       idle: "animations/rogue_idle.png",
       attack: "animations/rogue_attack.png",
