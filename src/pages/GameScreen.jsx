@@ -128,7 +128,7 @@ export default function GameScreen() {
       <div className={styles.background}></div>
       <div className={styles.grid}>
         <div className={styles.characterInfoBox}>
-          <CharacterInfo hero={characterState} loot={loot} />
+          <CharacterInfo hero={characterState} />
         </div>
         <div className={styles.dungeonMapBox}>
           <DungeonMap />

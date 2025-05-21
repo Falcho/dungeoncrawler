@@ -1,8 +1,17 @@
 import React from "react";
 import styles from "./CharacterInfo.module.css";
 
-const CharacterInfo = ({ hero, loot }) => {
+const CharacterInfo = ({ hero }) => {
   if (!hero) return null; // In case no hero is selected yet
+
+  // Count occurrences of each item in inventory
+  const inventoryCounts = hero.inventory.reduce((acc, item) => {
+    acc[item] = (acc[item] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Get unique items
+  const uniqueItems = Object.keys(inventoryCounts);
 
   return (
     <div className={styles.charGrid}>
@@ -34,11 +43,18 @@ const CharacterInfo = ({ hero, loot }) => {
         <div className={styles.inventoryContent}>
           <strong>Inventory:</strong>
           <ul>
-          {hero.inventory.length === 0 ? (
-            <li>No items in inventory</li>
-          ) : (
-            hero.inventory.map((item, index) => <li key={index}>{item}</li>)
-          )}
+            {uniqueItems.length === 0 ? (
+              <li>No items in inventory</li>
+            ) : (
+              uniqueItems.map((item, index) => (
+                <li key={index}>
+                  {item}
+                  {inventoryCounts[item] > 1 && (
+                    <> x{inventoryCounts[item]}</>
+                  )}
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </div>
