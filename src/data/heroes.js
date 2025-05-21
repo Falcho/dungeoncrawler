@@ -1,9 +1,14 @@
+import WarriorImg from '../assets/select-HeroWarrior.png'
+import MageImg from '../assets/select-HeroMage.png';
+import RogueImg from '../assets/select-HeroRogue.png';
+
 const heroes = [
   {
     id: 1,
     class: "Warrior",
     level: 1,
     gold: 0,
+    image: WarriorImg,
     health: 30,
     maxHealth: 30,
     animations: {
@@ -26,6 +31,7 @@ const heroes = [
     class: "Wizard",
     level: 1,
     gold: 0,
+    image: MageImg,
     health: 30,
     maxHealth: 30,
     animations: {
@@ -48,6 +54,7 @@ const heroes = [
     class: "Rogue",
     level: 1,
     gold: 0,
+    image: RogueImg,
     health: 30,
     maxHealth: 30,
     animations: {
