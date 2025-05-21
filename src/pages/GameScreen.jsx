@@ -45,23 +45,55 @@ const monster = {
   maxHealth: 20,
 };
 
+const dungeon = {
+  name: "Goblin Cave",
+  description: "A dark and damp cave filled with goblins.",
+  rooms: [
+    {
+      id: 1,
+      name: "Entrance",
+      description: "The entrance to the cave.",
+      monsters: [monster],
+      exits: [
+        { direction: "north", roomId: 2 },
+      ],
+    },
+    {
+      id: 2,
+      name: "Treasure Room",
+      description: "A room filled with treasure.",
+      monsters: [monster],
+      exits: [],
+    },
+  ],
+};
+
 export default function GameScreen() {
   const [characterState, setCharacterState] = useState(character);
   const [gameState, setGameState] = useState("barracks");
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
-  const [eventReolved, setEventResolved] = useState(false);
+  const [eventResolved, setEventResolved] = useState(false);
+  const [currentRoom, setCurrentRoom] = useState(null);
 
-  const handleAction = (action) => {
+  const handleAction = (action, nextRoomId) => {
     switch (gameState) {
       case "barracks":
-        if (action === "ADVENTURE") setGameState("enterRoom");
+        if (action === "ADVENTURE") {
+          // TODO: if hp<1 show alert that you need to sleep, else go to enterRoom
+          setCurrentRoom(dungeon.rooms[0]);
+          setGameState("enterRoom");
+        }
         if (action === "SLEEP") {
-          // implement sleep logic if needed
+          /* TODO: increase hp and wait for xx seconds, 
+          maybe add an extra state for sleeping, 
+          showing a sleeping animation and having the button to continue only appear after xx seconds
+          */
         }
         break;
 
       case "enterRoom":
+        // TODO: show some information about the room we are entering, a room description or something
         setGameState("encounter");
         break;
 
@@ -79,10 +111,10 @@ export default function GameScreen() {
       case "battleChoice":
         if (action === "FLEE") {
           setBattleLog([...battleLog, "You fled the battle!"]);
+          setGameState("barracks");
         }
-        setGameState("barracks");
         if (action === "USE_ITEM") {
-          // implement item logic
+          // TODO: implement item logic
         }
         if (action === "FIGHT") setGameState("autoBattle");
         break;
@@ -104,9 +136,11 @@ export default function GameScreen() {
         break;
 
       case "loot":
-        setLoot("Gold Sword"); // or dynamic value
+        setLoot("Gold Sword"); // maybe the autobattler should set the loot?
+        // TODO: check if there is loot, otherwise just skip to next step
         setBattleLog([...battleLog, "You found loot:" + loot]);
         // Add loot to character inventory
+        // TODO: refactor to create an addLoot function
         setCharacterState((prevState) => ({
           ...prevState,
           inventory: [...prevState.inventory, loot], // or dynamic value
@@ -115,7 +149,17 @@ export default function GameScreen() {
         break;
 
       case "continueOrHome":
-        if (action === "CONTINUE") setGameState("enterRoom");
+        if (action === "CONTINUE") {
+          let nextRoom = dungeon.rooms.find((room) => room.id === nextRoomId);
+          if (nextRoom) {
+            setCurrentRoom(nextRoom);
+            setGameState("enterRoom");
+          } else {
+            // Handle case where nextRoomId is invalid
+            setBattleLog([...battleLog, "No more rooms to explore!"]);
+            setGameState("barracks");
+          }
+        }
         if (action === "GO_HOME") setGameState("barracks");
         break;
 
@@ -137,6 +181,7 @@ export default function GameScreen() {
         <div className={styles.mainArea}>
           <div className={styles.battleArea}>
             <BattleScreen
+              currentRoom={currentRoom}
               gameState={gameState}
               character={character}
               monster={monster}
@@ -152,6 +197,7 @@ export default function GameScreen() {
           <div className={styles.mainBottom}>
             <div className={styles.optionPrompts}>
               <OptionPrompts
+                currentRoom={currentRoom}
                 gameState={gameState}
                 handleAction={handleAction}
               />

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OptionPrompts.module.css";
 
-const OptionPrompts = ({ gameState, handleAction }) => (
+const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
   <div className={styles.promptsContainer}>
     {gameState === "barracks" && (
       <>
@@ -39,6 +39,7 @@ const OptionPrompts = ({ gameState, handleAction }) => (
         <button
           className={styles.button}
           onClick={() => handleAction("EVENT")}
+          disabled
         >
           Event
         </button>
@@ -65,6 +66,7 @@ const OptionPrompts = ({ gameState, handleAction }) => (
         <button
           className={styles.button}
           onClick={() => handleAction("USE_ITEM")}
+          disabled
         >
           Use Item
         </button>
@@ -116,7 +118,8 @@ const OptionPrompts = ({ gameState, handleAction }) => (
       <>
         <button
           className={styles.button}
-          onClick={() => handleAction("CONTINUE")}
+          onClick={() => handleAction("CONTINUE", currentRoom.exits[0].roomId||0)}
+          disabled={currentRoom.exits.length==0}
         >
           Continue
         </button>

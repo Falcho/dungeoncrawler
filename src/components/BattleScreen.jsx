@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./BattleScreen.module.css";
 
-const BattleScreen = ({ gameState, character, monster }) => {
+const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
   return (
     <div className={styles.battleStage}>
       {/* Hero Section */}
@@ -20,7 +20,19 @@ const BattleScreen = ({ gameState, character, monster }) => {
         </div>
       </div>
 
-      <h1>Current State: {gameState}</h1>
+      <div>
+        <h1>Current Room: {currentRoom?.name}</h1>
+        <h2>Current State: {gameState}</h2>
+        {gameState === "enterRoom" && (
+        <p>{currentRoom?.description}</p>
+        )}
+        {gameState === "encounter" && (
+        <p>{monster?.description}</p>
+        )}
+        {gameState === "battleChoice" && (
+        <p>How do you want to handle this monster?</p>
+        )}
+      </div>
 
       {/* Monster Section */}
       <div className={styles.monsterBox}>
