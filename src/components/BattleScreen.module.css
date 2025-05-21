@@ -1,44 +1,96 @@
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #ffe6e6;
-  border: 2px solid #ff4d4d;
-  border-radius: 8px;
+.battleStage {
+  position: relative;
+  width: 100%;
   height: 100%;
+  min-height: 270px;
+  background: rgba(240,235,218,0.9);
+  border-radius: 1vw;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  overflow: hidden;
 }
 
-.character,
-.monster {
+.heroBox {
+  position: absolute;
+  left: 2.5vw;
+  bottom: 1vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 45%;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.hero {
+  width: 10vw;
+  max-width: 140px;
+  min-width: 65px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 16px rgba(0,0,0,0.22));
+  transform: scale(1.18);
+  margin-bottom: 0.5vw;
+  background: none;
+}
+
+.monsterBox {
+  position: absolute;
+  right: 3vw;
+  top: 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.monster {
+  width: 7vw;
+  max-width: 95px;
+  min-width: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 16px rgba(0,0,0,0.25));
+  transform: scale(0.88);
+  margin-bottom: 0.5vw;
+  background: none;
+}
+
+.infoBox {
+  background: rgba(255,255,255,0.86);
+  padding: 0.35em 0.7em;
+  border-radius: 0.7em;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  margin-top: 0.3vw;
+  margin-bottom: 0.1vw;
   text-align: center;
 }
 
-.image {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .name {
-  font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 0.25rem;
+  font-size: 1.06em;
+  color: #33270a;
+  margin-bottom: 2px;
 }
 
 .level {
-  font-size: 1rem;
-  color: #666;
+  font-size: 0.96em;
+  color: #af970c;
+  font-weight: 500;
+}
+.health {
+  font-size: 0.9em;
+  color: #b49c3b;
+  font-weight: 500;
+}
+
+.battleStage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 40% 90%, #dedeb6 30%, transparent 85%),
+              radial-gradient(ellipse at 80% 12%, #ffcac8 20%, transparent 80%);
+  opacity: 0.55;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .hero { width: 16vw; max-width: 80px; }
+  .monster { width: 11vw; max-width: 54px; }
 }

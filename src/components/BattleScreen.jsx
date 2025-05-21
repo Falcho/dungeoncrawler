@@ -2,30 +2,34 @@ import React from 'react';
 import styles from './BattleScreen.module.css';
 
 const BattleScreen = ({ character, monster }) => (
-  <div className={styles.container}>
-    {/* Character Section */}
-    <div className={styles.character}>
+  <div className={styles.battleStage}>
+    {/* Hero Section */}
+    <div className={styles.heroBox}>
       <img
         src={character.image}
         alt={character.name}
-        className={styles.image}
+        className={styles.hero}
       />
-      <div className={styles.info}>
+      <div className={styles.infoBox}>
         <div className={styles.name}>{character.name}</div>
-        <div className={styles.level}>Level: {character.level}</div>
+        <div className={styles.level}>Lvl {character.level}</div>
+        <div className={styles.health}>
+          Health: {character.health} / {character.maxHealth ?? "??"} </div>
       </div>
     </div>
 
     {/* Monster Section */}
-    <div className={styles.monster}>
+    <div className={styles.monsterBox}>
       <img
         src={monster.image}
         alt={monster.name}
-        className={styles.image}
+        className={styles.monster}
       />
-      <div className={styles.info}>
+      <div className={styles.infoBox}>
         <div className={styles.name}>{monster.name}</div>
-        <div className={styles.level}>Level: {monster.level}</div>
+        <div className={styles.level}>Lvl {monster.level}</div>
+        <div className={styles.health}>
+          Health: {monster.health} / {monster.maxHealth ?? "??"} </div>
       </div>
     </div>
   </div>
