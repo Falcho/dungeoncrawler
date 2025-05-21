@@ -7,6 +7,12 @@
   background-color: #1e1e1e;
   color: #fff;
   border-radius: 8px;
+  height: 100vh;
+  box-sizing: border-box;
+  background-image: url('../assets/select-background1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .title {
@@ -53,6 +59,7 @@
   padding: 1rem;
   background-color: #333;
   color: #fff;
+  opacity: 0.9;
   border: 2px solid #555;
   border-radius: 4px;
   cursor: pointer;
@@ -79,8 +86,8 @@
 }
 
 .selected {
-  background-color: #007bff;
-  border-color: #0056b3;
+  background-color: #565656;
+  border-color: #828282;
 }
 
 .buttons {
@@ -117,4 +124,10 @@
 
 .startButton:hover {
   background-color: #218838;
+}
+
+.nameInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

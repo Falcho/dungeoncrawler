@@ -24,6 +24,10 @@ const NewCharacter = () => {
     };
 
     const handleStartGame = () => {
+        if (characterName.trim() === '') {
+            alert('Please enter a character name!');
+            return;
+        }
         if (selectedHero) {
             // Logic to start the game with the selected hero 
             // This could involve saving the hero to local storage or state management
@@ -72,9 +76,6 @@ const NewCharacter = () => {
                         placeholder='Enter your character name'
                         className={styles.input}
                     />
-                    <button type='submit' className={styles.submitButton}>
-                        Save Name
-                    </button>
                 </form>
             </div>
             
