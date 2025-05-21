@@ -46,7 +46,7 @@ const NewCharacter = () => {
                                 className={`${styles.option} ${selectedHero === hero ? styles.selected : ''}`}
                                 onClick={() => handleHeroSelect(hero)}
                             >
-                                <img src={hero.animation} alt={hero.name} />
+                                <img src={hero.image} alt={hero.name} />
                                 <h2>{hero.name}</h2>
                                 <p>Class: {hero.class}</p>
                             </div>
@@ -69,7 +69,7 @@ const NewCharacter = () => {
                     </button>
                 </form>
             </div>
-        
+            
             <div className={styles.buttons}>
                 <button className={styles.backButton} onClick={() => navigate('/')}>
                     Back
