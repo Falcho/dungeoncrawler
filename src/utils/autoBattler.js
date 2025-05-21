@@ -1,36 +1,38 @@
 export default function autoBattler(hero, monster, logger) {
-    const mainStatMap = {
-        Warrior: 'strength',
-        Mage: 'intelligence',
-        Rogue: 'agility'
-    };
+    let heroAttack;
 
-    const heroStat = mainStatMap[hero.class];
-    if (!heroStat) throw new Error('Unknown hero class');
+    // Use a switch block to determine the hero's attack stat
+    switch (hero.class) {
+        case 'Warrior':
+            heroAttack = hero.attributes.strength;
+            break;
 
-    let heroState = { ...hero };
-    let monsterState = { ...monster };
+        case 'Wizard':
+            heroAttack = hero.attributes.intelligence;
+            break;
 
-    while (heroState.health > 0 && monsterState.health > 0) {
-        monsterState.health -= heroState[heroStat];
-        logger(`${hero.class} deals ${hero.attributes.strength} damage to ${monster.name}.`); //${hero.class} should be changed to ${hero.name}
+        case 'Rogue':
+            heroAttack = hero.attributes.agility;
+            break;
 
-        if (monsterState.health <= 0) break;
-
-        heroState.health -= monsterState.attack;
-        logger(`${monster.name} deals ${monster.attack} damage to ${hero.class}.`); //${hero.class} should be changed to ${hero.name}
+        default:
+            heroAttack = 0; // Fallback in case of an unknown class
+            logger(`Unknown hero class: ${hero.class}`);
     }
 
-    return heroState;
+    // Battle loop
+    while (hero.health > 0 && monster.health > 0) {
+        // Hero attacks monster
+        monster.health -= heroAttack;
+        logger(`${hero.class} deals ${heroAttack} damage to ${monster.name}.`);
+
+        if (monster.health <= 0) break;
+
+        // Monster attacks hero
+        hero.health -= monster.attack;
+        logger(`${monster.name} deals ${monster.attack} damage to ${hero.class}.`);
+    }
+
+    return hero;
 }
 
-// Example usage:
-/*
-const hero = { class: 'Warrior', health: 30, strength: 8, intelligence: 2, agility: 3 };
-const monster = { health: 25, attack: 5 };
-console.log(autoBattler(hero, monster));
-*/
-
-// TODO
-//Add logger, in while loop
-//in gameScreen, setBattleLog in autobattler,

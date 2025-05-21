@@ -1,4 +1,3 @@
-// src/pages/GameScreen.jsx
 import { useState } from 'react';
 import styles from "./GameScreen.module.css";
 import CharacterInfo from "../components/CharacterInfo";
@@ -86,7 +85,7 @@ export default function GameScreen() {
         if (action === "EVENT") setGameState("resolveEvent");
         break;
 
-      case "resolveEvent":
+      case 'resolveEvent':
         setEventResolved(true);
         addToBattleLog('Event resolved!');
         setGameState('barracks');
@@ -96,6 +95,7 @@ export default function GameScreen() {
         if (action === 'FLEE') {
           addToBattleLog('You fled the battle!');
           setGameState('barracks');
+        }
         if (action === 'USE_ITEM') {
           // implement item logic
         }
@@ -104,13 +104,13 @@ export default function GameScreen() {
 
       case 'autoBattle':
         setBattleLog([...battleLog, 'Resolving battle...']);
-        setCharacterState((prevState) => (((autoBattler(prevState, monster,addToBattleLog))));
+        setCharacterState((prevState) => (autoBattler(prevState, monster, addToBattleLog)));
         setGameState('battleOutcome');
         break;
 
       case 'battleOutcome':
         if (characterState.health > 0) {
-          addToBattleLog( 'You won the battle!');
+          addToBattleLog('You won the battle!');
           setGameState('loot');
         }
         else {
