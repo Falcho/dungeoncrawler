@@ -5,15 +5,20 @@ import RogueImg from '../assets/select-HeroRogue.png';
 const heroes = [
   {
     id: 1,
-    name: "Warrior",
-    class: "Fighter",
+    class: "Warrior",
     level: 1,
     gold: 0,
     image: WarriorImg,
+    health: 30,
+    maxHealth: 30,
     animations: {
       idle: "animations/warrior_idle.png",
       attack: "animations/warrior_attack.png",
       run: "animations/warrior_run.png",
+    },
+    equipment: {
+      weapon: "Sword",
+      armor: "Plate Armor",
     },
     attributes: {
       strength: 10,
@@ -23,11 +28,12 @@ const heroes = [
   },
   {
     id: 2,
-    name: "Mage",
-    class: "Spellcaster",
+    class: "Wizard",
     level: 1,
     gold: 0,
     image: MageImg,
+    health: 30,
+    maxHealth: 30,
     animations: {
       idle: "animations/mage_idle.png",
       attack: "animations/mage_attack.png",
@@ -38,14 +44,19 @@ const heroes = [
       agility: 4,
       intelligence: 10,
     },
+    equipment: {
+      weapon: "Staff",
+      armor: "Silk Robe",
+    },
   },
   {
     id: 3,
-    name: "Rogue",
-    class: "Stealth",
+    class: "Rogue",
     level: 1,
     gold: 0,
     image: RogueImg,
+    health: 30,
+    maxHealth: 30,
     animations: {
       idle: "animations/rogue_idle.png",
       attack: "animations/rogue_attack.png",
@@ -55,6 +66,10 @@ const heroes = [
       strength: 5,
       agility: 10,
       intelligence: 4,
+    },
+    equipment: {
+      weapon: "Dagger",
+      armor: "Leather Armor",
     },
   },
 ];
