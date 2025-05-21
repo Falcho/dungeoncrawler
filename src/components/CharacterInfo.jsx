@@ -33,11 +33,13 @@ const CharacterInfo = ({ hero, loot }) => {
       <div className={styles.inventory}>
         <div className={styles.inventoryContent}>
           <strong>Inventory:</strong>
+          <ul>
           {hero.inventory.length === 0 ? (
-            <div>No items in inventory</div>
+            <li>No items in inventory</li>
           ) : (
-            hero.inventory.map((item, index) => <div key={index}>- {item}</div>)
+            hero.inventory.map((item, index) => <li key={index}>{item}</li>)
           )}
+          </ul>
         </div>
       </div>
     </div>
