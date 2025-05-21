@@ -46,6 +46,14 @@ const NewCharacter = () => {
                                 className={`${styles.option} ${selectedHero === hero ? styles.selected : ''}`}
                                 onClick={() => handleHeroSelect(hero)}
                             >
+                                <input
+                                    type='radio'
+                                    name='hero'
+                                    value={hero.id}
+                                    checked={selectedHero?.id === hero.id}
+                                    onChange={() => handleHeroSelect(hero)}
+                                    className={styles.radioInput}
+                                />
                                 <img src={hero.image} alt={hero.name} />
                                 <h2>{hero.name}</h2>
                                 <p>Class: {hero.class}</p>

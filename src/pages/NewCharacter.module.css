@@ -43,6 +43,10 @@
   align-items: flex-start; /* Aligns items at the top */
 }
 
+.radioInput {
+  display: none; /* Hides the radio input */
+}
+
 .option {
   flex: 0 1 calc(25% - 1rem); /* Each card takes up 25% of the container width minus the gap */
   max-width: 200px; /* Optional: Set a max width for each card */
