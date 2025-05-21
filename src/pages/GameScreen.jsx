@@ -50,7 +50,14 @@ export default function GameScreen() {
   const [gameState, setGameState] = useState('barracks');
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
-  const [eventReolved, setEventResolved] = useState(false);
+  const [eventResolved, setEventResolved] = useState(false);
+
+  const addToBattleLog = (message) => {
+    setBattleLog((prevLog) => [message, ...prevLog]);
+  }
+  const clearBattleLog = () => {
+    setBattleLog([]);
+  }
 
   const handleAction = (action) => {
     switch (gameState) {
@@ -72,13 +79,13 @@ export default function GameScreen() {
 
       case 'resolveEvent':
         setEventResolved(true);
-        setBattleLog([...battleLog, 'Event resolved!']);
+        addToBattleLog('Event resolved!');
         setGameState('barracks');
         break;
 
       case 'battleChoice':
         if (action === 'FLEE') {
-          setBattleLog([...battleLog, 'You fled the battle!']);}
+          addToBattleLog('You fled the battle!');
           setGameState('barracks');
         if (action === 'USE_ITEM') {
           // implement item logic
@@ -87,23 +94,23 @@ export default function GameScreen() {
         break;
 
       case 'autoBattle':
-        setBattleLog([...battleLog, 'Resolving battle...']);
+        addToBattleLog('Resolving battle...');
         setGameState('battleOutcome');
         break;
 
       case 'battleOutcome':
         if (action === 'SUCCESS') {
-          setBattleLog([...battleLog, 'You won the battle!']);
+          addToBattleLog('You won the battle!');
           setGameState('loot');
         }
         if (action === 'FAIL') {
-          setBattleLog([...battleLog, 'You died!']);
+          addToBattleLog('You died!');
           setGameState('barracks');}
         break;
 
       case 'loot':
         setLoot('Gold Sword'); // or dynamic value
-        setBattleLog([...battleLog, 'You found loot:' + loot]);
+        addToBattleLog('You found loot:' + loot);
         // Add loot to character inventory
         setCharacterState((prevState) => ({
           ...prevState,
@@ -144,7 +151,7 @@ export default function GameScreen() {
 
         {/* BattleScreen sits in the open area using grid lines */}
         <div className={styles.battleArea}>
-          <BattleScreen gameState={gameState} character={character} monster={monster} />
+          <BattleScreen gameState={gameState} character={characterState} monster={monster} />
         </div>
       </div>
     </div>
