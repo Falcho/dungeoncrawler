@@ -13,28 +13,28 @@ import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
 
 const character = {
-   id: 1,
-    class: "Warrior",
-    level: 1,
-    gold: 0,
-    health: 30,
-    maxHealth: 30,
-  inventory: [],
-    image: HeroImg,
-    animations: {
-      full: fullhp,
-      half: halfhp,
-      low: lowhp,
-    },
-    equipment: {
-      weapon: "Sword",
-      armor: "Plate Armor",
-    },
-    attributes: {
-      strength: 10,
-      agility: 5,
-      intelligence: 3,
-    },
+  id: 1,
+  class: "Warrior",
+  level: 1,
+  gold: 0,
+  health: 30,
+  maxHealth: 30,
+  inventory: ["Gold Sword", "Health Potion"],
+  image: HeroImg,
+  animations: {
+    full: fullhp,
+    half: halfhp,
+    low: lowhp,
+  },
+  equipment: {
+    weapon: "Sword",
+    armor: "Plate Armor",
+  },
+  attributes: {
+    strength: 10,
+    agility: 5,
+    intelligence: 3,
+  },
 };
 
 const monster = {
@@ -47,7 +47,7 @@ const monster = {
 
 export default function GameScreen() {
   const [characterState, setCharacterState] = useState(character);
-  const [gameState, setGameState] = useState('barracks');
+  const [gameState, setGameState] = useState("barracks");
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
   const [eventResolved, setEventResolved] = useState(false);
@@ -61,23 +61,23 @@ export default function GameScreen() {
 
   const handleAction = (action) => {
     switch (gameState) {
-      case 'barracks':
-        if (action === 'ADVENTURE') setGameState('enterRoom');
-        if (action === 'SLEEP') {
+      case "barracks":
+        if (action === "ADVENTURE") setGameState("enterRoom");
+        if (action === "SLEEP") {
           // implement sleep logic if needed
         }
         break;
 
-      case 'enterRoom':
-        setGameState('encounter');
+      case "enterRoom":
+        setGameState("encounter");
         break;
 
-      case 'encounter':
-        if (action === 'MONSTER') setGameState('battleChoice');
-        if (action === 'EVENT') setGameState('resolveEvent');
+      case "encounter":
+        if (action === "MONSTER") setGameState("battleChoice");
+        if (action === "EVENT") setGameState("resolveEvent");
         break;
 
-      case 'resolveEvent':
+      case "resolveEvent":
         setEventResolved(true);
         addToBattleLog('Event resolved!');
         setGameState('barracks');
@@ -90,7 +90,7 @@ export default function GameScreen() {
         if (action === 'USE_ITEM') {
           // implement item logic
         }
-        if (action === 'FIGHT') setGameState('autoBattle');
+        if (action === "FIGHT") setGameState("autoBattle");
         break;
 
       case 'autoBattle':
@@ -114,14 +114,14 @@ export default function GameScreen() {
         // Add loot to character inventory
         setCharacterState((prevState) => ({
           ...prevState,
-          inventory: [...prevState.inventory, loot] // or dynamic value
+          inventory: [...prevState.inventory, loot], // or dynamic value
         }));
-        setGameState('continueOrHome');
+        setGameState("continueOrHome");
         break;
 
-      case 'continueOrHome':
-        if (action === 'CONTINUE') setGameState('enterRoom');
-        if (action === 'GO_HOME') setGameState('barracks');
+      case "continueOrHome":
+        if (action === "CONTINUE") setGameState("enterRoom");
+        if (action === "GO_HOME") setGameState("barracks");
         break;
 
       default:
@@ -133,16 +133,13 @@ export default function GameScreen() {
       <div className={styles.background}></div>
       <div className={styles.grid}>
         <div className={styles.characterInfoBox}>
-          <CharacterInfo hero={characterState} />
+          <CharacterInfo hero={characterState} loot={loot} />
         </div>
         <div className={styles.dungeonMapBox}>
           <DungeonMap />
         </div>
         <div className={styles.b3}>
-          <OptionPrompts
-            gameState={gameState}
-            handleAction={handleAction}
-          />
+          <OptionPrompts gameState={gameState} handleAction={handleAction} />
         </div>
 
         <div className={styles.battleLog}>
@@ -151,7 +148,11 @@ export default function GameScreen() {
 
         {/* BattleScreen sits in the open area using grid lines */}
         <div className={styles.battleArea}>
-          <BattleScreen gameState={gameState} character={characterState} monster={monster} />
+          <BattleScreen
+            gameState={gameState}
+            character={characterState}
+            monster={monster}
+          />
         </div>
       </div>
     </div>
