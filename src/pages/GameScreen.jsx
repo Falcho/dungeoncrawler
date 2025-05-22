@@ -1,4 +1,3 @@
-// src/pages/GameScreen.jsx
 import { useState } from "react";
 import styles from "./GameScreen.module.css";
 import CharacterInfo from "../components/CharacterInfo";
@@ -7,10 +6,11 @@ import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
 import HeroImg from "../assets/HeroWarrior.png";
-import MonsterImg from "../assets/MonsterGoblin.png";
+import GoblinImg from "../assets/MonsterGoblin.png";
 import fullhp from "../assets/fullHP2.png";
 import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
+import autoBattler from "../utils/autobattler";
 
 const character = {
   id: 1,
@@ -38,11 +38,19 @@ const character = {
 };
 
 const monster = {
+  id: 1,
   name: "Goblin",
-  level: 3,
-  image: MonsterImg,
-  health: 20,
-  maxHealth: 20,
+  image: GoblinImg,
+  level: 1,
+  health: 30,
+  maxHealth: 30,
+  attack: 5,
+  defense: 2,
+  experience: 10,
+  loot: {
+    gold: 5,
+    items: ["Goblin Tooth", "Old Sword"],
+  },
 };
 
 const dungeon = {
@@ -54,9 +62,7 @@ const dungeon = {
       name: "Entrance",
       description: "The entrance to the cave.",
       monsters: [monster],
-      exits: [
-        { direction: "north", roomId: 2 },
-      ],
+      exits: [{ direction: "north", roomId: 2 }],
     },
     {
       id: 2,
@@ -76,13 +82,24 @@ export default function GameScreen() {
   const [eventResolved, setEventResolved] = useState(false);
   const [currentRoom, setCurrentRoom] = useState(null);
 
+  const addToBattleLog = (message) => {
+    setBattleLog((prevLog) => [message, ...prevLog]);
+  };
+  const clearBattleLog = () => {
+    setBattleLog([]);
+  };
+
   const handleAction = (action, nextRoomId) => {
     switch (gameState) {
       case "barracks":
         if (action === "ADVENTURE") {
-          // TODO: if hp<1 show alert that you need to sleep, else go to enterRoom
-          setCurrentRoom(dungeon.rooms[0]);
-          setGameState("enterRoom");
+          if (characterState.health <= 1) {
+            alert("You need to sleep!");
+          } else {
+            // TODO: if hp<1 show alert that you need to sleep, else go to enterRoom
+            setCurrentRoom(dungeon.rooms[0]);
+            setGameState("enterRoom");
+          }
         }
         if (action === "SLEEP") {
           /* TODO: increase hp and wait for xx seconds, 
@@ -91,6 +108,9 @@ export default function GameScreen() {
           */
         }
         break;
+      case "sleeping":
+
+      break;
 
       case "enterRoom":
         // TODO: show some information about the room we are entering, a room description or something
@@ -104,33 +124,35 @@ export default function GameScreen() {
 
       case "resolveEvent":
         setEventResolved(true);
-        setBattleLog([...battleLog, "Event resolved!"]);
+        addToBattleLog("Event resolved!");
         setGameState("barracks");
         break;
 
       case "battleChoice":
         if (action === "FLEE") {
-          setBattleLog([...battleLog, "You fled the battle!"]);
+          addToBattleLog("You fled the battle!");
           setGameState("barracks");
         }
         if (action === "USE_ITEM") {
-          // TODO: implement item logic
+          // implement item logic
         }
         if (action === "FIGHT") setGameState("autoBattle");
         break;
 
       case "autoBattle":
         setBattleLog([...battleLog, "Resolving battle..."]);
+        setCharacterState((prevState) =>
+          autoBattler(prevState, monster, addToBattleLog)
+        );
         setGameState("battleOutcome");
         break;
 
       case "battleOutcome":
-        if (action === "SUCCESS") {
-          setBattleLog([...battleLog, "You won the battle!"]);
+        if (characterState.health > 0) {
+          addToBattleLog("You won the battle!");
           setGameState("loot");
-        }
-        if (action === "FAIL") {
-          setBattleLog([...battleLog, "You died!"]);
+        } else {
+          addToBattleLog("You died!");
           setGameState("barracks");
         }
         break;
@@ -138,7 +160,7 @@ export default function GameScreen() {
       case "loot":
         setLoot("Gold Sword"); // maybe the autobattler should set the loot?
         // TODO: check if there is loot, otherwise just skip to next step
-        setBattleLog([...battleLog, "You found loot:" + loot]);
+        addToBattleLog("You found loot:" + loot);
         // Add loot to character inventory
         // TODO: refactor to create an addLoot function
         setCharacterState((prevState) => ({
@@ -183,7 +205,7 @@ export default function GameScreen() {
             <BattleScreen
               currentRoom={currentRoom}
               gameState={gameState}
-              character={character}
+              character={characterState}
               monster={monster}
             />
             <div className={styles.wrapper}>
@@ -191,7 +213,6 @@ export default function GameScreen() {
                 <BattleLog battleLog={battleLog} />
               </div>
             </div>
-            
           </div>
 
           <div className={styles.mainBottom}>
