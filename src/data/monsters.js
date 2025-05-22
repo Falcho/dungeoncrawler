@@ -4,7 +4,8 @@ const monsters = [
     name: "Goblin",
     level: 1,
     health: 30,
-    attack: 5,
+    maxHealth: 30,
+    attack: 2,
     defense: 2,
     experience: 10,
     loot: {
@@ -17,7 +18,7 @@ const monsters = [
     name: "Skeleton",
     level: 2,
     health: 40,
-    attack: 7,
+    attack: 4,
     defense: 3,
     experience: 15,
     loot: {
@@ -30,7 +31,7 @@ const monsters = [
     name: "Orc",
     level: 3,
     health: 60,
-    attack: 10,
+    attack: 6,
     defense: 5,
     experience: 25,
     loot: {
@@ -43,7 +44,7 @@ const monsters = [
     name: "Troll",
     level: 4,
     health: 80,
-    attack: 12,
+    attack: 8,
     defense: 6,
     experience: 40,
     loot: {
@@ -56,7 +57,7 @@ const monsters = [
     name: "Dragon",
     level: 5,
     health: 150,
-    attack: 20,
+    attack: 10,
     defense: 10,
     experience: 100,
     loot: {
