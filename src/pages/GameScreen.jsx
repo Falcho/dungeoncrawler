@@ -38,7 +38,7 @@ const dungeon = {
       image: caveEntrace,
       name: "Entrance",
       description: "the entrance to the cave.",
-      monsters: [monster],
+      monsters: [{...monster}],
       exits: [{ direction: "north", roomId: 2 }],
     },
     {
@@ -46,7 +46,7 @@ const dungeon = {
       image: treasureRoom,
       name: "Treasure Room",
       description: "a room filled with treasure.",
-      monsters: [monster],
+      monsters: [{...monster}],
       exits: [],
     },
   ],
@@ -129,7 +129,7 @@ export default function GameScreen() {
       case "autoBattle":
         setBattleLog([...battleLog, "Resolving battle..."]);
         updateHero(
-          autoBattler(hero, monster, addToBattleLog)
+          autoBattler(hero, currentRoom.monsters[0], addToBattleLog)
         );
         setGameState("battleOutcome");
         break;
