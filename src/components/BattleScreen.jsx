@@ -2,12 +2,15 @@ import React from "react";
 import styles from "./BattleScreen.module.css";
 
 const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
+  if (!character) {
+    return <div className={styles.battleStage}>Loading...</div>;
+  }
   return (
     <div className={styles.battleStage}>
       {/* Hero Section */}
       <div className={styles.heroBox}>
         <img
-          src={character.image}
+          src={character.spriteImage}
           alt={character.name}
           className={styles.hero}
         />
