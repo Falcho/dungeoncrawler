@@ -1,6 +1,10 @@
 import WarriorImg from '../assets/select-HeroWarrior.png'
 import MageImg from '../assets/select-HeroMage.png';
 import RogueImg from '../assets/select-HeroRogue.png';
+import HeroImg from "../assets/HeroWarrior.png";
+import fullhp from "../assets/fullHP2.png";
+import halfhp from "../assets/halfHP.png";
+import lowhp from "../assets/lowHP.png";
 
 const heroes = [
   {
@@ -9,12 +13,14 @@ const heroes = [
     level: 1,
     gold: 0,
     image: WarriorImg,
+    spriteImage: HeroImg,
     health: 30,
     maxHealth: 30,
+    inventory: [],
     animations: {
-      idle: "animations/warrior_idle.png",
-      attack: "animations/warrior_attack.png",
-      run: "animations/warrior_run.png",
+      full: fullhp,
+      half: halfhp,
+      low: lowhp,
     },
     equipment: {
       weapon: "Sword",
@@ -32,12 +38,14 @@ const heroes = [
     level: 1,
     gold: 0,
     image: MageImg,
+    spriteImage: HeroImg,
     health: 30,
     maxHealth: 30,
+    inventory: [],
     animations: {
-      idle: "animations/mage_idle.png",
-      attack: "animations/mage_attack.png",
-      run: "animations/mage_run.png",
+      full: fullhp,
+      half: halfhp,
+      low: lowhp,
     },
     attributes: {
       strength: 3,
@@ -55,12 +63,14 @@ const heroes = [
     level: 1,
     gold: 0,
     image: RogueImg,
+    spriteImage: HeroImg,
     health: 30,
     maxHealth: 30,
+    inventory: [],
     animations: {
-      idle: "animations/rogue_idle.png",
-      attack: "animations/rogue_attack.png",
-      run: "animations/rogue_run.png",
+      full: fullhp,
+      half: halfhp,
+      low: lowhp,
     },
     attributes: {
       strength: 5,
