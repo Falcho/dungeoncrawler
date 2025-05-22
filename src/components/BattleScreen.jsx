@@ -3,7 +3,7 @@ import styles from "./BattleScreen.module.css";
 import barracksImg from "../assets/select-background1.png"
 
 const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
-  const [bgImg, setBgImg] = useState("");
+  const [bgImg, setBgImg] = useState(barracksImg);
   
   useEffect(() => {
     if (gameState === "enterRoom") {
