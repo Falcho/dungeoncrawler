@@ -78,7 +78,7 @@ const NewCharacter = () => {
         </div>
 
         <div className={styles.buttons}>
-          <button className={styles.backButton} onClick={() => navigate("/")}>
+          <button type="button" className={styles.backButton} onClick={() => navigate("/")}>
             Back
           </button>
           <button type="submit" className={styles.startButton}>

@@ -1,5 +1,3 @@
-const BASE_URL = "https://api.example.com"; // Replace with your actual base URL
-const LOGIN_ENDPOINT = "/auth/login"; // Replace with your actual login endpoint
 
 const loggedIn = () => {
     return Promise.resolve(true); // Return a resolved promise for consistency
