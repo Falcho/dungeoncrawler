@@ -11,6 +11,7 @@ import fullhp from "../assets/fullHP2.png";
 import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
 import autoBattler from "../utils/autobattler";
+import useCountdown from "../utils/useCountDown";
 
 const character = {
   id: 1,
@@ -60,14 +61,14 @@ const dungeon = {
     {
       id: 1,
       name: "Entrance",
-      description: "The entrance to the cave.",
+      description: "the entrance to the cave.",
       monsters: [monster],
       exits: [{ direction: "north", roomId: 2 }],
     },
     {
       id: 2,
       name: "Treasure Room",
-      description: "A room filled with treasure.",
+      description: "a room filled with treasure.",
       monsters: [monster],
       exits: [],
     },
@@ -102,18 +103,26 @@ export default function GameScreen() {
           }
         }
         if (action === "SLEEP") {
+          addToBattleLog("You are sleeping...");
           /* TODO: increase hp and wait for xx seconds, 
           maybe add an extra state for sleeping, 
           showing a sleeping animation and having the button to continue only appear after xx seconds
           */
         }
         break;
-      case "sleeping":
+      //Set characterState to full health, and make the player wait for a few seconds
 
-      break;
+      case "sleeping":
+        characterState.health = characterState.maxHealth;
+        addToBattleLog("You are fully healed!");
+        setGameState("barracks");
+        break;
 
       case "enterRoom":
         // TODO: show some information about the room we are entering, a room description or something
+        addToBattleLog(
+          "You entered a room, it looks like " + currentRoom.description
+        );
         setGameState("encounter");
         break;
 
