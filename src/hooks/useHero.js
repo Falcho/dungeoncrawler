@@ -7,8 +7,10 @@ const useHero = () => {
     const [hero, setHero] = useState(null);
 
     const fetchHero = () => {
+        console.log("Fetching hero...");
         persistence.fetchData(HERO_ENDPOINT)
             .then((data) => {
+                console.log("Fetched hero:", data);
                 setHero(data);
             })
             .catch((error) => {
