@@ -9,8 +9,5 @@
 .map {
   width: 95%;
   height: 90%;
-  background: #e7eaf3;
-  border: 2px solid #aaa;
   border-radius: 1vw;
-  /* Placeholder for your map */
 }
