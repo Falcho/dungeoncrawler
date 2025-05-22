@@ -13,12 +13,15 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
     }
   }, [gameState, currentRoom]);
 
+  if (!character) {
+    return <div className={styles.battleStage}>Loading...</div>;
+  }
   return (
     <div className={styles.battleStage} style={{ backgroundImage: `url(${bgImg})` }}>
       {/* Hero Section */}
       <div className={styles.heroBox}>
         <img
-          src={character.image}
+          src={character.spriteImage}
           alt={character.name}
           className={styles.hero}
         />
