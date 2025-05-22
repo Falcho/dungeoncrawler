@@ -52,6 +52,29 @@ const monster =   {
       items: ["Goblin Tooth", "Old Sword"]
     }
   };
+  
+  const dungeon = {
+  name: "Goblin Cave",
+  description: "A dark and damp cave filled with goblins.",
+  rooms: [
+    {
+      id: 1,
+      name: "Entrance",
+      description: "The entrance to the cave.",
+      monsters: [monster],
+      exits: [
+        { direction: "north", roomId: 2 },
+      ],
+    },
+    {
+      id: 2,
+      name: "Treasure Room",
+      description: "A room filled with treasure.",
+      monsters: [monster],
+      exits: [],
+    },
+  ],
+};
 
 export default function GameScreen() {
   const [characterState, setCharacterState] = useState(character);
