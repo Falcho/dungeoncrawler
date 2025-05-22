@@ -59,6 +59,10 @@ const fetchData = (endpoint) => {
 const saveData = (endpoint, data) => {
     const options = makeOptions("POST", true, data);
     return fetch(BASE_URL + endpoint, options).then(handleHttpError);
+}
+const deleteData = (endpoint) => {
+    const options = makeOptions("DELETE", true);
+    return fetch(BASE_URL + endpoint, options).then(handleHttpError);
 } 
 
 const persistence = {
@@ -68,6 +72,7 @@ const persistence = {
     logout,
     fetchData,
     saveData,
+    deleteData,
 };
 
 export default persistence;
