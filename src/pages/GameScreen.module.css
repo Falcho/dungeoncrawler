@@ -34,7 +34,7 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  max-width: 30vw;
+  max-width: 20vw;
   margin-right: 1rem;
 }
 
