@@ -1,41 +1,40 @@
 // src/pages/GameScreen.jsx
 import { useState } from "react";
+import useHero from "../hooks/useHero";
 import styles from "./GameScreen.module.css";
 import CharacterInfo from "../components/CharacterInfo";
 import DungeonMap from "../components/DungeonMap";
 import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
-import HeroImg from "../assets/HeroWarrior.png";
-import MonsterImg from "../assets/MonsterGoblin.png";
-import fullhp from "../assets/fullHP2.png";
-import halfhp from "../assets/halfHP.png";
-import lowhp from "../assets/lowHP.png";
 
-const character = {
-  id: 1,
-  class: "Warrior",
-  level: 1,
-  gold: 0,
-  health: 30,
-  maxHealth: 30,
-  inventory: ["Gold Sword", "Health Potion"],
-  image: HeroImg,
-  animations: {
-    full: fullhp,
-    half: halfhp,
-    low: lowhp,
-  },
-  equipment: {
-    weapon: "Sword",
-    armor: "Plate Armor",
-  },
-  attributes: {
-    strength: 10,
-    agility: 5,
-    intelligence: 3,
-  },
-};
+import MonsterImg from "../assets/MonsterGoblin.png";
+
+
+// const character = {
+//   id: 1,
+//   class: "Warrior",
+//   level: 1,
+//   gold: 0,
+//   health: 30,
+//   maxHealth: 30,
+//   inventory: ["Gold Sword", "Health Potion"],
+//   image: HeroImg,
+//   animations: {
+//     full: fullhp,
+//     half: halfhp,
+//     low: lowhp,
+//   },
+//   equipment: {
+//     weapon: "Sword",
+//     armor: "Plate Armor",
+//   },
+//   attributes: {
+//     strength: 10,
+//     agility: 5,
+//     intelligence: 3,
+//   },
+// };
 
 const monster = {
   name: "Goblin",
@@ -69,13 +68,14 @@ const dungeon = {
 };
 
 export default function GameScreen() {
-  const [characterState, setCharacterState] = useState(character);
+  const { hero, updateHero } = useHero();
   const [gameState, setGameState] = useState("barracks");
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
   const [eventResolved, setEventResolved] = useState(false);
   const [currentRoom, setCurrentRoom] = useState(null);
 
+  console.log("Hero state in GameScreen:", hero);
   const handleAction = (action, nextRoomId) => {
     switch (gameState) {
       case "barracks":
@@ -141,10 +141,10 @@ export default function GameScreen() {
         setBattleLog([...battleLog, "You found loot:" + loot]);
         // Add loot to character inventory
         // TODO: refactor to create an addLoot function
-        setCharacterState((prevState) => ({
-          ...prevState,
-          inventory: [...prevState.inventory, loot], // or dynamic value
-        }));
+        updateHero({
+          ...hero,
+          inventory: [...hero.inventory, loot], // or dynamic value
+        });
         setGameState("continueOrHome");
         break;
 
@@ -172,7 +172,7 @@ export default function GameScreen() {
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <div className={styles.characterInfoBox}>
-            <CharacterInfo hero={characterState} loot={loot} />
+            <CharacterInfo hero={hero} loot={loot} />
           </div>
           <div className={styles.dungeonMapBox}>
             <DungeonMap />
@@ -183,7 +183,7 @@ export default function GameScreen() {
             <BattleScreen
               currentRoom={currentRoom}
               gameState={gameState}
-              character={character}
+              character={hero}
               monster={monster}
             />
             <div className={styles.wrapper}>
