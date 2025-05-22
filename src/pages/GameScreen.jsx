@@ -11,7 +11,9 @@ import fullhp from "../assets/fullHP2.png";
 import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
 import autoBattler from "../utils/autobattler";
-import useCountdown from "../utils/useCountDown";
+import caveEntrace from "../assets/goblin-cave/Goblin-cave-entrance.png";
+import treasureRoom from "../assets/goblin-cave/Goblin-cave-treasureRoom.png";
+
 
 const character = {
   id: 1,
@@ -60,6 +62,7 @@ const dungeon = {
   rooms: [
     {
       id: 1,
+      image: caveEntrace,
       name: "Entrance",
       description: "the entrance to the cave.",
       monsters: [monster],
@@ -67,6 +70,7 @@ const dungeon = {
     },
     {
       id: 2,
+      image: treasureRoom,
       name: "Treasure Room",
       description: "a room filled with treasure.",
       monsters: [monster],
@@ -104,6 +108,7 @@ export default function GameScreen() {
         }
         if (action === "SLEEP") {
           addToBattleLog("You are sleeping...");
+          setGameState("sleeping");
           /* TODO: increase hp and wait for xx seconds, 
           maybe add an extra state for sleeping, 
           showing a sleeping animation and having the button to continue only appear after xx seconds
@@ -159,6 +164,7 @@ export default function GameScreen() {
       case "battleOutcome":
         if (characterState.health > 0) {
           addToBattleLog("You won the battle!");
+          setLoot("Gold Sword");
           setGameState("loot");
         } else {
           addToBattleLog("You died!");
@@ -167,15 +173,18 @@ export default function GameScreen() {
         break;
 
       case "loot":
-        setLoot("Gold Sword"); // maybe the autobattler should set the loot?
+        // maybe the autobattler should set the loot?
         // TODO: check if there is loot, otherwise just skip to next step
-        addToBattleLog("You found loot:" + loot);
-        // Add loot to character inventory
-        // TODO: refactor to create an addLoot function
-        setCharacterState((prevState) => ({
-          ...prevState,
-          inventory: [...prevState.inventory, loot], // or dynamic value
-        }));
+        if (loot) {
+          addToBattleLog("You found loot:" + loot);
+          // Add loot to character inventory
+          // TODO: refactor to create an addLoot function
+          setCharacterState((prevState) => ({
+            ...prevState,
+            inventory: [...prevState.inventory, loot], // or dynamic value
+          }));
+          setLoot(null);
+        }
         setGameState("continueOrHome");
         break;
 

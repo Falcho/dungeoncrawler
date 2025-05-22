@@ -1,7 +1,17 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./BattleScreen.module.css";
 
 const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
+  const [bgImg, setBgImg] = useState("");
+  
+  useEffect(() => {
+    if (gameState === "enterRoom") {
+      setBgImg(currentRoom?.image);
+    } else if (gameState === "encounter") {
+      setBgImg(currentRoom?.image);
+    }
+  }, [gameState, currentRoom]);
+
   return (
     <div className={styles.battleStage}>
       {/* Hero Section */}
