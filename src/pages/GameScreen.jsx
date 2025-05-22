@@ -91,7 +91,7 @@ export default function GameScreen() {
       //Set characterState to full health, and make the player wait for a few seconds
 
       case "sleeping":
-        characterState.health = characterState.maxHealth;
+        hero.health = hero.maxHealth;
         addToBattleLog("You are fully healed!");
         setGameState("barracks");
         break;
