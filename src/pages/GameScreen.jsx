@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useHero from "../hooks/useHero";
 import styles from "./GameScreen.module.css";
 import CharacterInfo from "../components/CharacterInfo";
 import DungeonMap from "../components/DungeonMap";
@@ -7,35 +8,32 @@ import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
 import HeroImg from "../assets/HeroWarrior.png";
 import GoblinImg from "../assets/MonsterGoblin.png";
-import fullhp from "../assets/fullHP2.png";
-import halfhp from "../assets/halfHP.png";
-import lowhp from "../assets/lowHP.png";
 import autoBattler from "../utils/autobattler";
 
-const character = {
-  id: 1,
-  class: "Warrior",
-  level: 1,
-  gold: 0,
-  health: 30,
-  maxHealth: 30,
-  inventory: ["Gold Sword", "Health Potion"],
-  image: HeroImg,
-  animations: {
-    full: fullhp,
-    half: halfhp,
-    low: lowhp,
-  },
-  equipment: {
-    weapon: "Sword",
-    armor: "Plate Armor",
-  },
-  attributes: {
-    strength: 10,
-    agility: 5,
-    intelligence: 3,
-  },
-};
+// const character = {
+//   id: 1,
+//   class: "Warrior",
+//   level: 1,
+//   gold: 0,
+//   health: 30,
+//   maxHealth: 30,
+//   inventory: ["Gold Sword", "Health Potion"],
+//   image: HeroImg,
+//   animations: {
+//     full: fullhp,
+//     half: halfhp,
+//     low: lowhp,
+//   },
+//   equipment: {
+//     weapon: "Sword",
+//     armor: "Plate Armor",
+//   },
+//   attributes: {
+//     strength: 10,
+//     agility: 5,
+//     intelligence: 3,
+//   },
+// };
 
 const monster = {
   id: 1,
@@ -75,7 +73,7 @@ const dungeon = {
 };
 
 export default function GameScreen() {
-  const [characterState, setCharacterState] = useState(character);
+  const { hero, updateHero } = useHero();
   const [gameState, setGameState] = useState("barracks");
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
@@ -93,7 +91,7 @@ export default function GameScreen() {
     switch (gameState) {
       case "barracks":
         if (action === "ADVENTURE") {
-          if (characterState.health <= 1) {
+          if (hero.health <= 1) {
             alert("You need to sleep!");
           } else {
             // TODO: if hp<1 show alert that you need to sleep, else go to enterRoom
@@ -141,14 +139,14 @@ export default function GameScreen() {
 
       case "autoBattle":
         setBattleLog([...battleLog, "Resolving battle..."]);
-        setCharacterState((prevState) =>
-          autoBattler(prevState, monster, addToBattleLog)
+        updateHero(
+          autoBattler(hero, monster, addToBattleLog)
         );
         setGameState("battleOutcome");
         break;
 
       case "battleOutcome":
-        if (characterState.health > 0) {
+        if (hero.health > 0) {
           addToBattleLog("You won the battle!");
           setGameState("loot");
         } else {
@@ -163,10 +161,10 @@ export default function GameScreen() {
         addToBattleLog("You found loot:" + loot);
         // Add loot to character inventory
         // TODO: refactor to create an addLoot function
-        setCharacterState((prevState) => ({
-          ...prevState,
-          inventory: [...prevState.inventory, loot], // or dynamic value
-        }));
+        updateHero({
+          ...hero,
+          inventory: [...hero.inventory, loot], // or dynamic value
+        });
         setGameState("continueOrHome");
         break;
 
@@ -194,7 +192,7 @@ export default function GameScreen() {
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <div className={styles.characterInfoBox}>
-            <CharacterInfo hero={characterState} loot={loot} />
+            <CharacterInfo hero={hero} loot={loot} />
           </div>
           <div className={styles.dungeonMapBox}>
             <DungeonMap />
@@ -205,7 +203,7 @@ export default function GameScreen() {
             <BattleScreen
               currentRoom={currentRoom}
               gameState={gameState}
-              character={characterState}
+              character={hero}
               monster={monster}
             />
             <div className={styles.wrapper}>
