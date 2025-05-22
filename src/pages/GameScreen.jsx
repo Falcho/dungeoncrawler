@@ -9,31 +9,9 @@ import BattleLog from "../components/BattleLog";
 import HeroImg from "../assets/HeroWarrior.png";
 import GoblinImg from "../assets/MonsterGoblin.png";
 import autoBattler from "../utils/autobattler";
+import caveEntrace from "../assets/goblin-cave/Goblin-cave-entrance.png";
+import treasureRoom from "../assets/goblin-cave/Goblin-cave-treasureRoom.png";
 
-// const character = {
-//   id: 1,
-//   class: "Warrior",
-//   level: 1,
-//   gold: 0,
-//   health: 30,
-//   maxHealth: 30,
-//   inventory: ["Gold Sword", "Health Potion"],
-//   image: HeroImg,
-//   animations: {
-//     full: fullhp,
-//     half: halfhp,
-//     low: lowhp,
-//   },
-//   equipment: {
-//     weapon: "Sword",
-//     armor: "Plate Armor",
-//   },
-//   attributes: {
-//     strength: 10,
-//     agility: 5,
-//     intelligence: 3,
-//   },
-// };
 
 const monster = {
   id: 1,
@@ -57,16 +35,18 @@ const dungeon = {
   rooms: [
     {
       id: 1,
+      image: caveEntrace,
       name: "Entrance",
-      description: "The entrance to the cave.",
-      monsters: [monster],
+      description: "the entrance to the cave.",
+      monsters: [{...monster}],
       exits: [{ direction: "north", roomId: 2 }],
     },
     {
       id: 2,
+      image: treasureRoom,
       name: "Treasure Room",
-      description: "A room filled with treasure.",
-      monsters: [monster],
+      description: "a room filled with treasure.",
+      monsters: [{...monster}],
       exits: [],
     },
   ],
@@ -100,18 +80,27 @@ export default function GameScreen() {
           }
         }
         if (action === "SLEEP") {
+          addToBattleLog("You are sleeping...");
+          setGameState("sleeping");
           /* TODO: increase hp and wait for xx seconds, 
           maybe add an extra state for sleeping, 
           showing a sleeping animation and having the button to continue only appear after xx seconds
           */
         }
         break;
-      case "sleeping":
+      //Set characterState to full health, and make the player wait for a few seconds
 
-      break;
+      case "sleeping":
+        hero.health = hero.maxHealth;
+        addToBattleLog("You are fully healed!");
+        setGameState("barracks");
+        break;
 
       case "enterRoom":
         // TODO: show some information about the room we are entering, a room description or something
+        addToBattleLog(
+          "You entered a room, it looks like " + currentRoom.description
+        );
         setGameState("encounter");
         break;
 
@@ -140,7 +129,7 @@ export default function GameScreen() {
       case "autoBattle":
         setBattleLog([...battleLog, "Resolving battle..."]);
         updateHero(
-          autoBattler(hero, monster, addToBattleLog)
+          autoBattler(hero, currentRoom.monsters[0], addToBattleLog)
         );
         setGameState("battleOutcome");
         break;
@@ -148,6 +137,7 @@ export default function GameScreen() {
       case "battleOutcome":
         if (hero.health > 0) {
           addToBattleLog("You won the battle!");
+          setLoot("Gold Sword");
           setGameState("loot");
         } else {
           addToBattleLog("You died!");
@@ -156,15 +146,18 @@ export default function GameScreen() {
         break;
 
       case "loot":
-        setLoot("Gold Sword"); // maybe the autobattler should set the loot?
+        // maybe the autobattler should set the loot?
         // TODO: check if there is loot, otherwise just skip to next step
-        addToBattleLog("You found loot:" + loot);
-        // Add loot to character inventory
-        // TODO: refactor to create an addLoot function
-        updateHero({
-          ...hero,
-          inventory: [...hero.inventory, loot], // or dynamic value
-        });
+        if (loot) {
+          addToBattleLog("You found loot:" + loot);
+          // Add loot to character inventory
+          // TODO: refactor to create an addLoot function
+          updateHero({
+            ...hero,
+            inventory: [...hero.inventory, loot], // or dynamic value
+          });
+          setLoot(null);
+        }
         setGameState("continueOrHome");
         break;
 

@@ -3,10 +3,13 @@
   width: 100%;
   height: 100%;
   min-height: 270px;
-  background: rgba(240,235,218,0.9);
+  background: rgba(198, 194, 181, 0.9);
   border-radius: 1vw;
   box-shadow: 0 2px 16px rgba(0,0,0,0.05);
   overflow: hidden;
+  background-size: cover; /* Ensures the image covers the div proportionally */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
 }
 
 .heroBox {
@@ -77,17 +80,6 @@
   font-size: 0.9em;
   color: #b49c3b;
   font-weight: 500;
-}
-
-.battleStage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 40% 90%, #dedeb6 30%, transparent 85%),
-              radial-gradient(ellipse at 80% 12%, #ffcac8 20%, transparent 80%);
-  opacity: 0.55;
-  z-index: 0;
-  pointer-events: none;
 }
 
 @media (max-width: 900px) {
