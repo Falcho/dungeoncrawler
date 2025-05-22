@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styles from "./BattleScreen.module.css";
+import barracksImg from "../assets/select-background1.png"
 
 const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
   const [bgImg, setBgImg] = useState("");
@@ -7,13 +8,13 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
   useEffect(() => {
     if (gameState === "enterRoom") {
       setBgImg(currentRoom?.image);
-    } else if (gameState === "encounter") {
-      setBgImg(currentRoom?.image);
+    } else if (gameState === "barracks") {
+      setBgImg(barracksImg);
     }
   }, [gameState, currentRoom]);
 
   return (
-    <div className={styles.battleStage}>
+    <div className={styles.battleStage} style={{ backgroundImage: `url(${bgImg})` }}>
       {/* Hero Section */}
       <div className={styles.heroBox}>
         <img

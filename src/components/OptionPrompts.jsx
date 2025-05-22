@@ -19,6 +19,14 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
         </button>
       </>
     )}
+    {gameState === "sleeping" && (
+      <button
+        className={styles.button}
+        onClick={() => handleAction("WAKE_UP")}
+      >
+        Wake Up
+      </button>
+    )}
     {gameState === "enterRoom" && (
       <button
         className={styles.button}
