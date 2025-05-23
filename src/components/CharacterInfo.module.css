@@ -47,6 +47,23 @@
   align-items: flex-start;
   color: black;
   padding: 0.5rem;
+  max-height: 10rem; /* Set a maximum height for the inventory */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  scrollbar-width: thin; /* Optional: thinner scrollbar for modern browsers */
+}
+
+/* Optional: Style the scrollbar for better appearance */
+.inventory::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inventory::-webkit-scrollbar-thumb {
+  background-color: #b49c3b; /* Match the theme color */
+  border-radius: 4px;
+}
+
+.inventory::-webkit-scrollbar-thumb:hover {
+  background-color: #a68b2f; /* Darker shade on hover */
 }
 
 .inventoryContent {
