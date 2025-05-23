@@ -7,7 +7,7 @@ import DungeonMap from "../components/DungeonMap";
 import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
-import autoBattler from "../utils/autobattler";
+import autoBattler from "../utils/autoBattler";
 import { useEffect } from "react";
 
 // Images
