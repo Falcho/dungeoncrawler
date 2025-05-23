@@ -12,6 +12,7 @@ import autoBattler from "../utils/autobattler";
 import caveEntrace from "../assets/goblin-cave/Goblin-cave-entrance.png";
 import treasureRoom from "../assets/goblin-cave/Goblin-cave-treasureRoom.png";
 
+
 const monster = {
   id: 1,
   name: "Goblin",
@@ -37,7 +38,7 @@ const dungeon = {
       image: caveEntrace,
       name: "Entrance",
       description: "the entrance to the cave.",
-      monsters: [{ ...monster }],
+      monsters: [{...monster}],
       exits: [{ direction: "north", roomId: 2 }],
     },
     {
@@ -45,7 +46,7 @@ const dungeon = {
       image: treasureRoom,
       name: "Treasure Room",
       description: "a room filled with treasure.",
-      monsters: [{ ...monster }],
+      monsters: [{...monster}],
       exits: [],
     },
   ],
@@ -127,7 +128,9 @@ export default function GameScreen() {
 
       case "autoBattle":
         setBattleLog([...battleLog, "Resolving battle..."]);
-        updateHero(autoBattler(hero, currentRoom.monsters[0], addToBattleLog));
+        updateHero(
+          autoBattler(hero, currentRoom.monsters[0], addToBattleLog)
+        );
         setGameState("battleOutcome");
         break;
 
@@ -182,7 +185,7 @@ export default function GameScreen() {
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <div className={styles.characterInfoBox}>
-            <CharacterInfo character={hero} loot={loot} />
+            <CharacterInfo hero={hero} loot={loot} />
           </div>
           <div className={styles.dungeonMapBox}>
             <DungeonMap />

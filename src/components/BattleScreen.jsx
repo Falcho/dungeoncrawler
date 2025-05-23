@@ -34,7 +34,7 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
         </div>
       </div>
 
-      <div className={styles.infoText}>
+      <div>
         <h1>Current Room: {currentRoom?.name}</h1>
         <h2>Current State: {gameState}</h2>
         {gameState === "enterRoom" && (

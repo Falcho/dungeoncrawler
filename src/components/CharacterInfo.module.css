@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 0.8vw;
   font-size: 1.1vw;
-
 }
 
 .charGrid {
@@ -18,7 +17,7 @@
 .image {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-
+  background: #e8eaf6;
   display: flex;
   align-items: center;
   justify-content: center;
