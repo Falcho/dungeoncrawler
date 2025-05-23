@@ -31,7 +31,7 @@ export default function GameScreen() {
     if (gameState === "barracks") {
       fetchDungeon();
     }
-  }, [gameState, fetchDungeon]);
+  }, [gameState]);
 
   const handleAction = (action, nextRoomId) => {
     switch (gameState) {
