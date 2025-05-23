@@ -1,110 +1,61 @@
 import React from "react";
 import styles from "./OptionPrompts.module.css";
+import Button from "./Button";
 
-const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
+const OptionPrompts = ({ gameState, currentRoom, handleAction, character }) => (
   <div className={styles.promptsContainer}>
     {gameState === "barracks" && (
       <>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("ADVENTURE")}
-        >
-          Adventure
-        </button>
-        <button className={styles.button} onClick={() => handleAction("SLEEP")}>
-          Sleep
-        </button>
+        <Button
+          buttonText="Adventure"
+          onclick={() => handleAction("ADVENTURE")}
+          disabled={character?.health <= 0}
+        />
+        <Button buttonText="Sleep" onclick={() => handleAction("SLEEP")} />
       </>
     )}
     {gameState === "sleeping" && (
-      <button className={styles.button} onClick={() => handleAction("WAKE_UP")}>
-        Wake Up
-      </button>
+      <Button buttonText="Wake Up" onclick={() => handleAction("WAKE_UP")} />
     )}
-    {gameState === "enterRoom" && (
-      <button className={styles.button} onClick={() => handleAction()}>
-        Enter Room
-      </button>
+    {(gameState === "enterRoom" || gameState === "startAdventure") && (
+      <Button buttonText="Continue" onclick={() => handleAction()} />
     )}
-
     {gameState === "encounter" && (
       <>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("CONTINUE")}
-        >
-          Continue
-        </button>
+        <Button buttonText="Continue" onclick={() => handleAction("CONTINUE")} />
       </>
     )}
-
     {gameState === "resolveEvent" && (
-      <button className={styles.button} onClick={() => handleAction("RESOLVE")}>
-        Resolve
-      </button>
+      <Button buttonText="Resolve" onclick={() => handleAction("RESOLVE")} />
     )}
-
     {gameState === "battleChoice" && (
       <>
-        <button className={styles.button} onClick={() => handleAction("FLEE")}>
-          Flee
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("USE_ITEM")}
-          disabled
-        >
-          Use Item
-        </button>
-        <button className={styles.button} onClick={() => handleAction("FIGHT")}>
-          Fight
-        </button>
+        <Button buttonText="Flee" onclick={() => handleAction("FLEE")} />
+        <Button buttonText="Use Item" onclick={() => handleAction("USE_ITEM")} disabled />
+        <Button buttonText="Fight" onclick={() => handleAction("FIGHT")} />
       </>
     )}
-
     {gameState === "autoBattle" && (
-      <button className={styles.button} onClick={() => handleAction()}>
-        Auto Battle
-      </button>
+      <Button buttonText="Auto Battle" onclick={() => handleAction()} />
     )}
-
     {gameState === "battleOutcome" && (
       <>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("SUCCESS")}
-        >
-          Success
-        </button>
-        <button className={styles.button} onClick={() => handleAction("FAIL")}>
-          Fail
-        </button>
+        <Button buttonText="Continue" onclick={() => handleAction()} />
       </>
     )}
-
     {gameState === "loot" && (
-      <button className={styles.button} onClick={() => handleAction()}>
-        Get Loot
-      </button>
+      <Button buttonText="Get Loot" onclick={() => handleAction()} />
     )}
-
     {gameState === "continueOrHome" && (
       <>
-        <button
-          className={styles.button}
-          onClick={() =>
+        <Button
+          buttonText="Continue"
+          onclick={() =>
             handleAction("CONTINUE", currentRoom.exits[0].roomId || 0)
           }
-          disabled={currentRoom.exits.length == 0}
-        >
-          Continue
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("GO_HOME")}
-        >
-          Go Home
-        </button>
+          disabled={currentRoom.exits.length === 0}
+        />
+        <Button buttonText="Go Home" onclick={() => handleAction("GO_HOME")} />
       </>
     )}
   </div>
