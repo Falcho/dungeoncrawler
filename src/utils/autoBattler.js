@@ -24,13 +24,13 @@ export default function autoBattler(hero, monster, logger) {
     while (hero.health > 0 && monster.health > 0) {
         // Hero attacks monster
         monster.health -= heroAttack;
-        logger(`${hero.class} deals ${heroAttack} damage to ${monster.name}.`);
+        logger(`${hero.name} deals ${heroAttack} damage to ${monster.name}.`);
 
         if (monster.health <= 0) break;
 
         // Monster attacks hero
         hero.health -= monster.attack;
-        logger(`${monster.name} deals ${monster.attack} damage to ${hero.class}.`);
+        logger(`${monster.name} deals ${monster.attack} damage to ${hero.name}.`);
     }
 
     return hero;
