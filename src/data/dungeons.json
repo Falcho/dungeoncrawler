@@ -1,0 +1,177 @@
+{
+  "dungeon": [
+    {
+      "name": "Goblin Cave",
+      "description": "A dark and damp cave filled with goblins.",
+      "rooms": [
+        {
+          "id": 1,
+          "image": "/dungeons/goblin-cave/Goblin-cave-entrance.png",
+          "name": "Entrance",
+          "description": "the entrance to the cave.",
+          "monsters": [
+            {
+              "id": 1,
+              "name": "Goblin",
+              "image": "/monsters/MonsterGoblin.png",
+              "level": 1,
+              "health": 30,
+              "maxHealth": 30,
+              "attack": 2,
+              "defense": 2,
+              "loot": {
+                "gold": 5,
+                "items": ["Goblin Tooth"]
+              },
+              "experience": 10
+            }
+          ],
+          "exits": [{ "direction": "north", "roomId": 2 }]
+        },
+        {
+          "id": 2,
+          "image": "/dungeons/goblin-cave/Goblin-cave-forked.png",
+          "name": "Hallway",
+          "description": "a long and dark hallway.",
+          "monsters": [
+            {
+              "id": 1,
+              "name": "Goblin",
+              "image": "/monsters/MonsterGoblin.png",
+              "level": 2,
+              "health": 30,
+              "maxHealth": 30,
+              "attack": 5,
+              "defense": 2,
+              "experience": 10,
+              "loot": {
+                "gold": 5,
+                "items": ["Old Sword"]
+              }
+            }
+          ],
+          "exits": [{ "direction": "east", "roomId": 3 }]
+        },
+        {
+          "id": 3,
+          "image": "/dungeons/goblin-cave/Goblin-cave-treasureRoom.png",
+          "name": "Treasure Room",
+          "description": "a room filled with treasure.",
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Goblin Chief",
+              "image": "/monsters/MonsterGoblin.png",
+              "level": 2,
+              "health": 20,
+              "maxHealth": 40,
+              "attack": 7,
+              "defense": 2,
+              "experience": 10,
+              "loot": {
+                "gold": 5,
+                "items": ["Gold Sword"]
+              }
+            }
+          ],
+          "exits": []
+        }
+      ]
+    },
+    {
+      "name": "Crypt of the Forgotten King",
+      "description": "A haunted crypt deep beneath the ruins of a forgotten castle. Whispers echo through the stone halls.",
+      "id": "crypt-001",
+      "rooms": [
+        {
+          "id": 1,
+          "image": "/dungeons/crypt/Crypt-entrance.png",
+          "name": "Sealed Entrance",
+          "description": "The heavy stone door groans as it opens, revealing a tomb untouched for centuries.",
+          "monsters": [
+            {
+              "id": 1,
+              "name": "Crypt Guardian",
+              "image": "/monsters/MonsterSkeleton.png",
+              "level": 1,
+              "health": 25,
+              "maxHealth": 25,
+              "attack": 3,
+              "defense": 1,
+              "loot": {
+                "gold": 3,
+                "items": ["Rusty Key"]
+              },
+              "experience": 8
+            }
+          ],
+          "exits": [{ "direction": "north", "roomId": 2 }]
+        },
+        {
+          "id": 2,
+          "image": "/dungeons/crypt/Crypt-hallway.png",
+          "name": "Hall of Whispers",
+          "description": "Ghostly whispers fill the corridor. A faded inscription on the wall hints at a puzzle.",
+          "monsters": [],
+          "exits": [{ "direction": "east", "roomId": 3 }]
+        },
+        {
+          "id": 3,
+          "image": "/dungeons/crypt/Crypt-trickroom.png",
+          "name": "Hall of Illusions",
+          "description": "A trick room filled with mirrored illusions. One step in the wrong direction could be fatal.",
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Phantom Shade",
+              "image": "/monsters/MonsterShade.png",
+              "level": 2,
+              "health": 20,
+              "maxHealth": 20,
+              "attack": 4,
+              "defense": 3,
+              "loot": {
+                "gold": 4,
+                "items": ["Illusory Cloak Fragment"]
+              },
+              "experience": 12
+            }
+          ],
+          "exits": [{ "direction": "north", "roomId": 4 }]
+        },
+        {
+          "id": 4,
+          "image": "/dungeons/crypt/Crypt-throneroom.jpeg",
+          "name": "Throne of the Forgotten King",
+          "description": "An ancient undead king rises from his throne, sword in hand. His gaze pierces your soul.",
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Forgotten King",
+              "image": "/monsters/MonsterUndeadKing.jpeg",
+              "level": 4,
+              "health": 60,
+              "maxHealth": 60,
+              "attack": 10,
+              "defense": 5,
+              "loot": {
+                "gold": 15,
+                "items": ["Cursed Crown", "Ancient Sword"]
+              },
+              "experience": 50
+            }
+          ],
+          "exits": [{ "direction": "south", "roomId": 5 }]
+        },
+        {
+          "id": 5,
+          "image": "/dungeons/crypt/Crypt-secretvault.jpeg",
+          "name": "Secret Vault",
+          "description": "Behind the throne lies a hidden chamber filled with treasure and the King's forgotten journal.",
+          "monsters": [],
+          "exits": []
+        }
+      ]
+    }
+  ]
+}
