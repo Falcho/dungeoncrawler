@@ -100,7 +100,7 @@ const BattleScreen = ({
           <>
             <h1>{currentRoom?.name}</h1>
             <p>{currentRoom?.description}</p>
-            {character?.health < 0 && <p>You died!</p>}
+            {character?.health <= 0 && <p>You died!</p>}
             {character?.health > 0 && <p>You won the battle! {monster?.name} was defeated!</p>}
           </>
         )}

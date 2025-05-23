@@ -13,7 +13,7 @@ const CharacterInfo = ({ character }) => {
     } else {
       setCharacterImg(character?.animations?.low);
     }
-  }, [character]);
+  }, [character?.health, character?.maxHealth, character?.animations]);
   
   if (!character) return null; // In case no hero is selected yet
   return (
