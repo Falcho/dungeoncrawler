@@ -8,6 +8,7 @@ import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
 import autoBattler from "../utils/autobattler";
+import { useEffect } from "react";
 
 // Images
 
@@ -26,19 +27,20 @@ export default function GameScreen() {
   const clearBattleLog = () => {
     setBattleLog([]);
   };
+  useEffect(() => {
+    if (gameState === "barracks") {
+      fetchDungeon();
+    }
+  }, [gameState, fetchDungeon]);
 
   const handleAction = (action, nextRoomId) => {
     switch (gameState) {
       case "barracks":
-        // TODO: Fetch a dungeon from the server
-        fetchDungeon();
-        console.log(dungeon.name);
-        // TODO: add a loading screen while fetching the dungeon (prevents the user from clicking buttons while loading)
+        if (dungeon) {console.log(dungeon.name);}
         if (action === "ADVENTURE") {
           if (hero.health <= 1) {
             alert("You need to sleep!");
           } else {
-            // TODO: if hp<1 show alert that you need to sleep, else go to enterRoom
             setCurrentRoom(dungeon.rooms[0]);
             setGameState("enterRoom");
           }
@@ -150,13 +152,14 @@ export default function GameScreen() {
         </div>
         <div className={styles.mainArea}>
           <div className={styles.battleArea}>
-            {(!loadingDungeon) && (
-            <BattleScreen
-              currentRoom={currentRoom}
-              gameState={gameState}
-              character={hero}
-              monster={currentRoom?.monsters[0]}
-            />)}
+            {!loadingDungeon && (
+              <BattleScreen
+                currentRoom={currentRoom}
+                gameState={gameState}
+                character={hero}
+                monster={currentRoom?.monsters[0]}
+              />
+            )}
             <div className={styles.wrapper}>
               <div className={styles.battleLog}>
                 <BattleLog battleLog={battleLog} />
