@@ -49,7 +49,7 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
       </div>
 
       {/* Monster Section */}
-      {(gameState === "encounter" || gameState === "battleChoice" || gameState === "autoBattle" || gameState === "battleOutcome") && (
+      {(gameState === "encounter" || gameState === "battleChoice" || gameState === "autoBattle" || gameState === "battleOutcome") && (monster) && (
       <div className={styles.monsterBox}>
         <img
           src={monster.image}

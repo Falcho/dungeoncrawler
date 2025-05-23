@@ -11,27 +11,18 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
         >
           Adventure
         </button>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("SLEEP")}
-        >
+        <button className={styles.button} onClick={() => handleAction("SLEEP")}>
           Sleep
         </button>
       </>
     )}
     {gameState === "sleeping" && (
-      <button
-        className={styles.button}
-        onClick={() => handleAction("WAKE_UP")}
-      >
+      <button className={styles.button} onClick={() => handleAction("WAKE_UP")}>
         Wake Up
       </button>
     )}
     {gameState === "enterRoom" && (
-      <button
-        className={styles.button}
-        onClick={() => handleAction()}
-      >
+      <button className={styles.button} onClick={() => handleAction()}>
         Enter Room
       </button>
     )}
@@ -40,35 +31,22 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
       <>
         <button
           className={styles.button}
-          onClick={() => handleAction("MONSTER")}
+          onClick={() => handleAction("CONTINUE")}
         >
-          Monster
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("EVENT")}
-          disabled
-        >
-          Event
+          Continue
         </button>
       </>
     )}
 
     {gameState === "resolveEvent" && (
-      <button
-        className={styles.button}
-        onClick={() => handleAction("RESOLVE")}
-      >
+      <button className={styles.button} onClick={() => handleAction("RESOLVE")}>
         Resolve
       </button>
     )}
 
     {gameState === "battleChoice" && (
       <>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("FLEE")}
-        >
+        <button className={styles.button} onClick={() => handleAction("FLEE")}>
           Flee
         </button>
         <button
@@ -78,20 +56,14 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
         >
           Use Item
         </button>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("FIGHT")}
-        >
+        <button className={styles.button} onClick={() => handleAction("FIGHT")}>
           Fight
         </button>
       </>
     )}
 
     {gameState === "autoBattle" && (
-      <button
-        className={styles.button}
-        onClick={() => handleAction()}
-      >
+      <button className={styles.button} onClick={() => handleAction()}>
         Auto Battle
       </button>
     )}
@@ -104,20 +76,14 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
         >
           Success
         </button>
-        <button
-          className={styles.button}
-          onClick={() => handleAction("FAIL")}
-        >
+        <button className={styles.button} onClick={() => handleAction("FAIL")}>
           Fail
         </button>
       </>
     )}
 
     {gameState === "loot" && (
-      <button
-        className={styles.button}
-        onClick={() => handleAction()}
-      >
+      <button className={styles.button} onClick={() => handleAction()}>
         Get Loot
       </button>
     )}
@@ -126,8 +92,10 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction }) => (
       <>
         <button
           className={styles.button}
-          onClick={() => handleAction("CONTINUE", currentRoom.exits[0].roomId||0)}
-          disabled={currentRoom.exits.length==0}
+          onClick={() =>
+            handleAction("CONTINUE", currentRoom.exits[0].roomId || 0)
+          }
+          disabled={currentRoom.exits.length == 0}
         >
           Continue
         </button>
