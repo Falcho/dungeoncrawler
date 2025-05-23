@@ -1,13 +1,25 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./CharacterInfo.module.css";
 
-const CharacterInfo = ({ character, loot }) => {
-  if (!character) return null; // In case no hero is selected yet
 
+const CharacterInfo = ({ character }) => {
+  const [characterImg, setCharacterImg] = useState(character?.animations?.full || "");
+  
+  useEffect(() => {
+    if (character?.health >= character?.maxHealth * 0.5) {
+      setCharacterImg(character?.animations?.full);
+    } else if (character?.health >= character?.maxHealth * 0.25) {
+      setCharacterImg(character?.animations?.half);
+    } else {
+      setCharacterImg(character?.animations?.low);
+    }
+  }, [character]);
+  
+  if (!character) return null; // In case no hero is selected yet
   return (
     <div className={styles.charGrid}>
       <div className={styles.image}>
-        <img src={character.animations.full} alt={character.class} />
+        <img src={characterImg} alt={character.class} />
       </div>
       <div className={styles.stats}>
         <strong>Name:</strong> {character.name}
