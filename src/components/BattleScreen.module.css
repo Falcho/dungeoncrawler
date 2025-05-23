@@ -12,6 +12,10 @@
   background-repeat: no-repeat; /* Prevents tiling */
 }
 
+.infoText {
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
 .heroBox {
   position: absolute;
   left: 2.5vw;

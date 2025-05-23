@@ -1,43 +1,45 @@
 import React from "react";
 import styles from "./CharacterInfo.module.css";
 
-const CharacterInfo = ({ hero, loot }) => {
-  if (!hero) return null; // In case no hero is selected yet
+const CharacterInfo = ({ character, loot }) => {
+  if (!character) return null; // In case no hero is selected yet
 
   return (
     <div className={styles.charGrid}>
       <div className={styles.image}>
-        <img src={hero.animations.full} alt={hero.class} />
+        <img src={character.animations.full} alt={character.class} />
       </div>
       <div className={styles.stats}>
-        <strong>Class:</strong> {hero.class}
+        <strong>Name:</strong> {character.name}
         <br />
-        <strong>Level:</strong> {hero.level} <br />
-        <strong>Health:</strong> {hero.health} / {hero.maxHealth} <br />
-        <strong>Gold:</strong> {hero.gold}
+        <strong>Class:</strong> {character.class}
+        <br />
+        <strong>Level:</strong> {character.level} <br />
+        <strong>Health:</strong> Health: {character.health} / {character.maxHealth ?? "??"}{" "} <br />
+        <strong>Gold:</strong> {character.gold}
         <hr />
         <strong>Attributes</strong>
         <br />
-        STR: {hero.attributes.strength}
+        STR: {character.attributes.strength}
         <br />
-        AGI: {hero.attributes.agility}
+        AGI: {character.attributes.agility}
         <br />
-        INT: {hero.attributes.intelligence}
+        INT: {character.attributes.intelligence}
         <hr />
         <strong>Equipment</strong>
         <br />
-        Weapon: {hero.equipment?.weapon || "None"}
+        Weapon: {character.equipment?.weapon || "None"}
         <br />
-        Armor: {hero.equipment?.armor || "None"}
+        Armor: {character.equipment?.armor || "None"}
       </div>
       <div className={styles.inventory}>
         <div className={styles.inventoryContent}>
           <strong>Inventory:</strong>
           <ul>
-          {hero.inventory.length === 0 ? (
+          {character.inventory.length === 0 ? (
             <li>No items in inventory</li>
           ) : (
-            hero.inventory.map((item, index) => <li key={index}>{item}</li>)
+            character.inventory.map((item, index) => <li key={index}>{item}</li>)
           )}
           </ul>
         </div>

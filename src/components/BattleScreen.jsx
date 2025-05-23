@@ -34,7 +34,7 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
         </div>
       </div>
 
-      <div>
+      <div className={styles.infoText}>
         <h1>Current Room: {currentRoom?.name}</h1>
         <h2>Current State: {gameState}</h2>
         {gameState === "enterRoom" && (
@@ -49,6 +49,7 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
       </div>
 
       {/* Monster Section */}
+      {(gameState === "encounter" || gameState === "battleChoice" || gameState === "autoBattle" || gameState === "battleOutcome") && (
       <div className={styles.monsterBox}>
         <img
           src={monster.image}
@@ -63,6 +64,7 @@ const BattleScreen = ({ gameState, currentRoom, character, monster }) => {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };
