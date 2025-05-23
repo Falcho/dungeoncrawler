@@ -9,7 +9,7 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction, character }) => (
         <Button
           buttonText="Adventure"
           onclick={() => handleAction("ADVENTURE")}
-          disabled={character?.health <= 0}
+          disabled={character?.health < 1}
         />
         <Button buttonText="Sleep" onclick={() => handleAction("SLEEP")} />
       </>
