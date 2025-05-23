@@ -1,7 +1,9 @@
 import WarriorImg from '../assets/select-HeroWarrior.png'
 import MageImg from '../assets/select-HeroMage.png';
 import RogueImg from '../assets/select-HeroRogue.png';
-import HeroImg from "../assets/HeroWarrior.png";
+import FighterSprite from "../assets/HeroWarrior.png";
+import RogueSprite from "../assets/HeroRogue.png";
+import WizardSprite from "../assets/HeroWizard.png";
 import fullhp from "../assets/fullHP2.png";
 import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
@@ -13,7 +15,7 @@ const heroes = [
     level: 1,
     gold: 0,
     image: WarriorImg,
-    spriteImage: HeroImg,
+    spriteImage: FighterSprite,
     health: 30,
     maxHealth: 30,
     inventory: [],
@@ -38,7 +40,7 @@ const heroes = [
     level: 1,
     gold: 0,
     image: MageImg,
-    spriteImage: HeroImg,
+    spriteImage: WizardSprite,
     health: 30,
     maxHealth: 30,
     inventory: [],
@@ -63,7 +65,7 @@ const heroes = [
     level: 1,
     gold: 0,
     image: RogueImg,
-    spriteImage: HeroImg,
+    spriteImage: RogueSprite,
     health: 30,
     maxHealth: 30,
     inventory: [],
