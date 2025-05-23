@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.example.com"; // Replace with your actual base URL
+const BASE_URL = "http://127.0.0.1:3000/"; // Replace with your actual base URL
 const LOGIN_ENDPOINT = "/auth/login"; // Replace with your actual login endpoint
 
 function handleHttpError(result) {
