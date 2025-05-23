@@ -65,7 +65,7 @@
               "level": 2,
               "health": 40,
               "maxHealth": 40,
-              "attack": 7,
+              "attack": 5,
               "defense": 2,
               "experience": 10,
               "loot": {
