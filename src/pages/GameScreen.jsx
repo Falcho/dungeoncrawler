@@ -21,7 +21,7 @@ export default function GameScreen() {
   const [currentRoom, setCurrentRoom] = useState(null);
 
   const addToBattleLog = (message) => {
-    setBattleLog((prevLog) => [message, ...prevLog]);
+    setBattleLog((prevLog) => [...prevLog, message]);
   };
   const clearBattleLog = () => {
     setBattleLog([]);
@@ -31,6 +31,8 @@ export default function GameScreen() {
     switch (gameState) {
       case "barracks":
         // TODO: Fetch a dungeon from the server
+        fetchDungeon();
+        console.log(dungeon.name);
         // TODO: add a loading screen while fetching the dungeon (prevents the user from clicking buttons while loading)
         if (action === "ADVENTURE") {
           if (hero.health <= 1) {
@@ -148,12 +150,13 @@ export default function GameScreen() {
         </div>
         <div className={styles.mainArea}>
           <div className={styles.battleArea}>
+            {(!loadingDungeon) && (
             <BattleScreen
               currentRoom={currentRoom}
               gameState={gameState}
               character={hero}
               monster={currentRoom?.monsters[0]}
-            />
+            />)}
             <div className={styles.wrapper}>
               <div className={styles.battleLog}>
                 <BattleLog battleLog={battleLog} />
