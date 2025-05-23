@@ -8,54 +8,54 @@ const OptionPrompts = ({ gameState, currentRoom, handleAction, character }) => (
       <>
         <Button
           buttonText="Adventure"
-          onclick={() => handleAction("ADVENTURE")}
+          onClick={() => handleAction("ADVENTURE")}
           disabled={character?.health < 1}
         />
-        <Button buttonText="Sleep" onclick={() => handleAction("SLEEP")} />
+        <Button buttonText="Sleep" onClick={() => handleAction("SLEEP")} />
       </>
     )}
     {gameState === "sleeping" && (
-      <Button buttonText="Wake Up" onclick={() => handleAction("WAKE_UP")} />
+      <Button buttonText="Wake Up" onClick={() => handleAction("WAKE_UP")} />
     )}
     {(gameState === "enterRoom" || gameState === "startAdventure") && (
-      <Button buttonText="Continue" onclick={() => handleAction()} />
+      <Button buttonText="Continue" onClick={() => handleAction()} />
     )}
     {gameState === "encounter" && (
       <>
-        <Button buttonText="Continue" onclick={() => handleAction("CONTINUE")} />
+        <Button buttonText="Continue" onClick={() => handleAction("CONTINUE")} />
       </>
     )}
     {gameState === "resolveEvent" && (
-      <Button buttonText="Resolve" onclick={() => handleAction("RESOLVE")} />
+      <Button buttonText="Resolve" onClick={() => handleAction("RESOLVE")} />
     )}
     {gameState === "battleChoice" && (
       <>
-        <Button buttonText="Flee" onclick={() => handleAction("FLEE")} />
-        <Button buttonText="Use Item" onclick={() => handleAction("USE_ITEM")} disabled />
-        <Button buttonText="Fight" onclick={() => handleAction("FIGHT")} />
+        <Button buttonText="Flee" onClick={() => handleAction("FLEE")} />
+        <Button buttonText="Use Item" onClick={() => handleAction("USE_ITEM")} disabled />
+        <Button buttonText="Fight" onClick={() => handleAction("FIGHT")} />
       </>
     )}
     {gameState === "autoBattle" && (
-      <Button buttonText="Auto Battle" onclick={() => handleAction()} />
+      <Button buttonText="Auto Battle" onClick={() => handleAction()} />
     )}
     {gameState === "battleOutcome" && (
       <>
-        <Button buttonText="Continue" onclick={() => handleAction()} />
+        <Button buttonText="Continue" onClick={() => handleAction()} />
       </>
     )}
     {gameState === "loot" && (
-      <Button buttonText="Get Loot" onclick={() => handleAction()} />
+      <Button buttonText="Get Loot" onClick={() => handleAction()} />
     )}
     {gameState === "continueOrHome" && (
       <>
         <Button
           buttonText="Continue"
-          onclick={() =>
+          onClick={() =>
             handleAction("CONTINUE", currentRoom.exits[0].roomId || 0)
           }
           disabled={currentRoom.exits.length === 0}
         />
-        <Button buttonText="Go Home" onclick={() => handleAction("GO_HOME")} />
+        <Button buttonText="Go Home" onClick={() => handleAction("GO_HOME")} />
       </>
     )}
   </div>
