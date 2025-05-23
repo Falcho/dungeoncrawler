@@ -7,8 +7,8 @@ import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
 import styles from "./GameScreen.module.css";
+import autoBattler from "../utils/autobattler";
 // Images
-
 
 
 const monster = {
@@ -197,9 +197,7 @@ export default function GameScreen() {
 
       case "autoBattle":
         setBattleLog([...battleLog, "Resolving battle..."]);
-        updateHero(
-          autoBattler(hero, currentRoom.monsters[0], addToBattleLog)
-        );
+        updateHero(autoBattler(hero, currentRoom.monsters[0], addToBattleLog));
         setGameState("battleOutcome");
         break;
 
@@ -254,7 +252,7 @@ export default function GameScreen() {
       <div className={styles.content}>
         <div className={styles.sidebar}>
           <div className={styles.characterInfoBox}>
-            <CharacterInfo hero={hero} loot={loot} />
+            <CharacterInfo character={hero} loot={loot} />
           </div>
           <div className={styles.dungeonMapBox}>
             <DungeonMap />
