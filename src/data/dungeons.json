@@ -141,14 +141,14 @@
         },
         {
           "id": 4,
-          "image": "/dungeons/crypt/Crypt-throneroom.jpg",
+          "image": "/dungeons/crypt/Crypt-throneroom.jpeg",
           "name": "Throne of the Forgotten King",
           "description": "An ancient undead king rises from his throne, sword in hand. His gaze pierces your soul.",
           "monsters": [
             {
               "id": 3,
               "name": "Forgotten King",
-              "image": "/monsters/MonsterUndeadKing.jpg",
+              "image": "/monsters/MonsterUndeadKing.jpeg",
               "level": 4,
               "health": 60,
               "maxHealth": 60,
@@ -165,7 +165,7 @@
         },
         {
           "id": 5,
-          "image": "/dungeons/crypt/Crypt-secretvault.jpg",
+          "image": "/dungeons/crypt/Crypt-secretvault.jpeg",
           "name": "Secret Vault",
           "description": "Behind the throne lies a hidden chamber filled with treasure and the King's forgotten journal.",
           "monsters": [],
