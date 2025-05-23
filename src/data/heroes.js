@@ -4,15 +4,15 @@ import RogueImg from '../assets/select-HeroRogue.png';
 import FighterSprite from "../assets/HeroWarrior.png";
 import RogueSprite from "../assets/HeroRogue.png";
 import WizardSprite from "../assets/HeroWizard.png";
-import fullhp from "../assets/fullHP2.png";
-import halfhp from "../assets/halfHP.png";
-import lowhp from "../assets/lowHP.png";
-import fullhpRogue from "../assets/fullHPRogue.png";
-import halfhpRogue from "../assets/halfHPRogue.png";
-import lowhpRogue from "../assets/lowHPRogue.png";
-import fullhpWizard from "../assets/fullHPWizard.png";
-import halfhpWizard from "../assets/halfHPWizard.png";
-import lowhpWizard from "../assets/lowHPWizard.png";
+import fullhp from "../assets/fullhp.png";
+import halfhp from "../assets/halfhp.png";
+import lowhp from "../assets/lowhp.png";
+import fullhpRogue from "../assets/fullhpRogue.png";
+import halfhpRogue from "../assets/halfhpRogue.png";
+import lowhpRogue from "../assets/lowhpRogue.png";
+import fullhpWizard from "../assets/fullhpWizard.png";
+import halfhpWizard from "../assets/halfhpWizard.png";
+import lowhpWizard from "../assets/lowhpWizard.png";
 
 const heroes = [
   {
