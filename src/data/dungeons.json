@@ -63,7 +63,7 @@
               "name": "Goblin Chief",
               "image": "/monsters/MonsterGoblin.png",
               "level": 2,
-              "health": 20,
+              "health": 40,
               "maxHealth": 40,
               "attack": 7,
               "defense": 2,
