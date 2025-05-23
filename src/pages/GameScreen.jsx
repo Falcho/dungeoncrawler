@@ -42,7 +42,7 @@ export default function GameScreen() {
             alert("You need to sleep!");
           } else {
             setCurrentRoom(dungeon.rooms[0]);
-            setGameState("enterRoom");
+            setGameState("startAdventure");
           }
         }
         if (action === "SLEEP") {
@@ -50,18 +50,22 @@ export default function GameScreen() {
           setGameState("sleeping");
         }
         break;
-      //Set characterState to full health, and make the player wait for a few seconds
 
-      case "sleeping":
-        hero.health = hero.maxHealth;
+        case "startAdventure":
+        setGameState("enterRoom");
+        break;
+        
+        case "sleeping":
+        //Set characterState to full health, and make the player wait for a few seconds
+        updateHero({
+          ...hero,
+          health: hero.maxHealth,
+        });
         addToBattleLog("You are fully healed!");
         setGameState("barracks");
         break;
 
       case "enterRoom":
-        addToBattleLog(
-          "You entered a room, it looks like " + currentRoom.description
-        );
         setGameState("encounter");
         if (currentRoom.monsters.length) setGameState("battleChoice");
         if (currentRoom.event) setGameState("resolveEvent");
@@ -154,10 +158,12 @@ export default function GameScreen() {
           <div className={styles.battleArea}>
             {!loadingDungeon && (
               <BattleScreen
+                dungeon={dungeon}
                 currentRoom={currentRoom}
                 gameState={gameState}
                 character={hero}
                 monster={currentRoom?.monsters[0]}
+                loot={loot}
               />
             )}
             <div className={styles.wrapper}>
@@ -173,6 +179,7 @@ export default function GameScreen() {
                 currentRoom={currentRoom}
                 gameState={gameState}
                 handleAction={handleAction}
+                character={hero}
               />
             </div>
           </div>
