@@ -6,17 +6,15 @@ import DungeonMap from "../components/DungeonMap";
 import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
-import HeroImg from "../assets/HeroWarrior.png";
-import GoblinImg from "../assets/MonsterGoblin.png";
-import autoBattler from "../utils/autobattler";
-import caveEntrace from "../assets/goblin-cave/Goblin-cave-entrance.png";
-import treasureRoom from "../assets/goblin-cave/Goblin-cave-treasureRoom.png";
+import styles from "./GameScreen.module.css";
+// Images
+
 
 
 const monster = {
   id: 1,
   name: "Goblin",
-  image: GoblinImg,
+  image: "/monsters/MonsterGoblin.png",
   level: 1,
   health: 30,
   maxHealth: 30,
@@ -30,26 +28,99 @@ const monster = {
 };
 
 const dungeon = {
-  name: "Goblin Cave",
-  description: "A dark and damp cave filled with goblins.",
-  rooms: [
+      "name": "Crypt of the Forgotten King",
+      "description": "A haunted crypt deep beneath the ruins of a forgotten castle. Whispers echo through the stone halls.",
+      "id": "crypt-001",
+      "rooms": [
     {
-      id: 1,
-      image: caveEntrace,
-      name: "Entrance",
-      description: "the entrance to the cave.",
-      monsters: [{...monster}],
-      exits: [{ direction: "north", roomId: 2 }],
+          "id": 1,
+          "image": "/dungeons/crypt/Crypt-entrance.png",
+          "name": "Sealed Entrance",
+          "description": "The heavy stone door groans as it opens, revealing a tomb untouched for centuries.",
+          "monsters": [
+            {
+              "id": 1,
+              "name": "Crypt Guardian",
+              "image": "/monsters/MonsterSkeleton.png",
+              "level": 1,
+              "health": 25,
+              "maxHealth": 25,
+              "attack": 3,
+              "defense": 1,
+              "loot": {
+                "gold": 3,
+                "items": ["Rusty Key"]
+              },
+              "experience": 8
+            }
+          ],
+          "exits": [{ "direction": "north", "roomId": 2 }]
     },
     {
-      id: 2,
-      image: treasureRoom,
-      name: "Treasure Room",
-      description: "a room filled with treasure.",
-      monsters: [{...monster}],
-      exits: [],
-    },
-  ],
+          "id": 2,
+          "image": "/dungeons/crypt/Crypt-hallway.png",
+          "name": "Hall of Whispers",
+          "description": "Ghostly whispers fill the corridor. A faded inscription on the wall hints at a puzzle.",
+          "monsters": [],
+          "exits": [{ "direction": "east", "roomId": 3 }]
+        },
+        {
+          "id": 3,
+          "image": "/dungeons/crypt/Crypt-trickroom.png",
+          "name": "Hall of Illusions",
+          "description": "A trick room filled with mirrored illusions. One step in the wrong direction could be fatal.",
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Phantom Shade",
+              "image": "/monsters/MonsterShade.png",
+              "level": 2,
+              "health": 20,
+              "maxHealth": 20,
+              "attack": 4,
+              "defense": 3,
+              "loot": {
+                "gold": 4,
+                "items": ["Illusory Cloak Fragment"]
+              },
+              "experience": 12
+            }
+          ],
+          "exits": [{ "direction": "north", "roomId": 4 }]
+        },
+        {
+          "id": 4,
+          "image": "/dungeons/crypt/Crypt-throneroom.jpeg",
+          "name": "Throne of the Forgotten King",
+          "description": "An ancient undead king rises from his throne, sword in hand. His gaze pierces your soul.",
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Forgotten King",
+              "image": "/monsters/MonsterUndeadKing.jpeg",
+              "level": 4,
+              "health": 60,
+              "maxHealth": 60,
+              "attack": 10,
+              "defense": 5,
+              "loot": {
+                "gold": 15,
+                "items": ["Cursed Crown", "Ancient Sword"]
+              },
+              "experience": 50
+            }
+          ],
+          "exits": [{ "direction": "south", "roomId": 5 }]
+        },
+        {
+          "id": 5,
+          "image": "/dungeons/crypt/Crypt-secretvault.jpeg",
+          "name": "Secret Vault",
+          "description": "Behind the throne lies a hidden chamber filled with treasure and the King's forgotten journal.",
+          "monsters": [],
+          "exits": []
+        }
+      ]
 };
 
 export default function GameScreen() {
@@ -70,6 +141,8 @@ export default function GameScreen() {
   const handleAction = (action, nextRoomId) => {
     switch (gameState) {
       case "barracks":
+        // TODO: Fetch a dungeon from the server
+        // TODO: add a loading screen while fetching the dungeon (prevents the user from clicking buttons while loading)
         if (action === "ADVENTURE") {
           if (hero.health <= 1) {
             alert("You need to sleep!");
@@ -82,10 +155,6 @@ export default function GameScreen() {
         if (action === "SLEEP") {
           addToBattleLog("You are sleeping...");
           setGameState("sleeping");
-          /* TODO: increase hp and wait for xx seconds, 
-          maybe add an extra state for sleeping, 
-          showing a sleeping animation and having the button to continue only appear after xx seconds
-          */
         }
         break;
       //Set characterState to full health, and make the player wait for a few seconds
@@ -97,22 +166,22 @@ export default function GameScreen() {
         break;
 
       case "enterRoom":
-        // TODO: show some information about the room we are entering, a room description or something
+
         addToBattleLog(
           "You entered a room, it looks like " + currentRoom.description
         );
         setGameState("encounter");
+        if (currentRoom.monsters.length) setGameState("battleChoice");
+        if (currentRoom.event) setGameState("resolveEvent");
         break;
 
       case "encounter":
-        if (action === "MONSTER") setGameState("battleChoice");
-        if (action === "EVENT") setGameState("resolveEvent");
+        setGameState("resolveEvent");
         break;
-
       case "resolveEvent":
         setEventResolved(true);
         addToBattleLog("Event resolved!");
-        setGameState("barracks");
+        setGameState("loot");
         break;
 
       case "battleChoice":
@@ -137,7 +206,7 @@ export default function GameScreen() {
       case "battleOutcome":
         if (hero.health > 0) {
           addToBattleLog("You won the battle!");
-          setLoot("Gold Sword");
+          setLoot(currentRoom.monsters[0].loot.items[0]);
           setGameState("loot");
         } else {
           addToBattleLog("You died!");
@@ -197,7 +266,7 @@ export default function GameScreen() {
               currentRoom={currentRoom}
               gameState={gameState}
               character={hero}
-              monster={monster}
+              monster={currentRoom?.monsters[0]}
             />
             <div className={styles.wrapper}>
               <div className={styles.battleLog}>
