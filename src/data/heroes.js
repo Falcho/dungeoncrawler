@@ -7,6 +7,12 @@ import WizardSprite from "../assets/HeroWizard.png";
 import fullhp from "../assets/fullHP2.png";
 import halfhp from "../assets/halfHP.png";
 import lowhp from "../assets/lowHP.png";
+import fullhpRogue from "../assets/fullHPRogue.png";
+import halfhpRogue from "../assets/halfHPRogue.png";
+import lowhpRogue from "../assets/lowHPRogue.png";
+import fullhpWizard from "../assets/fullHPWizard.png";
+import halfhpWizard from "../assets/halfHPWizard.png";
+import lowhpWizard from "../assets/lowHPWizard.png";
 
 const heroes = [
   {
@@ -45,9 +51,9 @@ const heroes = [
     maxHealth: 30,
     inventory: [],
     animations: {
-      full: fullhp,
-      half: halfhp,
-      low: lowhp,
+      full: fullhpWizard,
+      half: halfhpWizard,
+      low: lowhpWizard,
     },
     attributes: {
       strength: 3,
@@ -70,9 +76,9 @@ const heroes = [
     maxHealth: 30,
     inventory: [],
     animations: {
-      full: fullhp,
-      half: halfhp,
-      low: lowhp,
+      full: fullhpRogue,
+      half: halfhpRogue,
+      low: lowhpRogue,
     },
     attributes: {
       strength: 5,
