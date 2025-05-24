@@ -24,9 +24,18 @@ export default function GameScreen() {
   const addToBattleLog = (message) => {
     setBattleLog((prevLog) => [...prevLog, message]);
   };
-  const clearBattleLog = () => {
-    setBattleLog([]);
-  };
+
+  const addLootToInventory = (loot) => {
+    updateHero((prevHero) => ({
+      ...prevHero,
+      inventory: [...prevHero.inventory, loot],
+    }));
+  }
+
+  const handleBattleResult = (updatedHero) => {
+    updateHero(updatedHero);
+  }
+
   useEffect(() => {
     if (gameState === "barracks") {
       fetchDungeon();
@@ -92,7 +101,7 @@ export default function GameScreen() {
         break;
 
       case "autoBattle":
-        setBattleLog([...battleLog, "Resolving battle..."]);
+        addToBattleLog("Resolving battle...");
         updateHero(autoBattler(hero, currentRoom.monsters[0], addToBattleLog));
         setGameState("battleOutcome");
         break;
@@ -113,12 +122,7 @@ export default function GameScreen() {
         // TODO: check if there is loot, otherwise just skip to next step
         if (loot) {
           addToBattleLog("You found loot:" + loot);
-          // Add loot to character inventory
-          // TODO: refactor to create an addLoot function
-          updateHero({
-            ...hero,
-            inventory: [...hero.inventory, loot], // or dynamic value
-          });
+          addLootToInventory(loot);
           setLoot(null);
         }
         setGameState("continueOrHome");
@@ -164,6 +168,8 @@ export default function GameScreen() {
                 character={hero}
                 monster={currentRoom?.monsters[0]}
                 loot={loot}
+                handleBattleResult={handleBattleResult}
+                addToBattleLog={addToBattleLog}
               />
             )}
             <div className={styles.wrapper}>

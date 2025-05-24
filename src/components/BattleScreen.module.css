@@ -85,6 +85,31 @@
   color: #b49c3b;
   font-weight: 500;
 }
+.floatingNumber {
+  position: absolute;
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+  animation: floatUp 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+  top: 40%; /* Adjust as needed for hero/monster */
+  left: 50%; /* Overwritten inline for hero/monster */
+  transform: translate(-50%, 0);
+  text-shadow: 1px 1px 8px #000;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -60px);
+  }
+}
+
 
 @media (max-width: 900px) {
   .hero { width: 16vw; max-width: 80px; }

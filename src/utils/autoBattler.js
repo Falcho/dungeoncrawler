@@ -1,4 +1,4 @@
-export default function autoBattler(hero, monster, logger) {
+export default function autoBattler(hero, monster, logger) { // TODO: add callback damageEvent parameter
     let heroAttack;
 
     // Use a switch block to determine the hero's attack stat
@@ -25,12 +25,15 @@ export default function autoBattler(hero, monster, logger) {
         // Hero attacks monster
         monster.health -= heroAttack;
         logger(`${hero.name} deals ${heroAttack} damage to ${monster.name}.`);
+        // TODO: use a callback to send damage events up to the UI
+
 
         if (monster.health <= 0) break;
 
         // Monster attacks hero
         hero.health -= monster.attack;
         logger(`${monster.name} deals ${monster.attack} damage to ${hero.name}.`);
+        // TODO: use a callback to send damage events up to the UI
     }
 
     return hero;

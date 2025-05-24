@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
+import autoBattler from "../utils/autoBattler";
 import styles from "./BattleScreen.module.css";
 import barracksImg from "../assets/select-background1.png";
+
+const FLOAT_DURATION = 1250;
 
 const BattleScreen = ({
   gameState,
@@ -9,8 +12,11 @@ const BattleScreen = ({
   monster,
   dungeon,
   loot,
+  handleBattleResult,
+  addToBattleLog
 }) => {
   const [bgImg, setBgImg] = useState(barracksImg);
+  const [floatingNumbers, setFloatingNumbers] = useState([]);
 
   useEffect(() => {
     if (gameState === "enterRoom" || gameState === "startAdventure") {
@@ -19,6 +25,38 @@ const BattleScreen = ({
       setBgImg(barracksImg);
     }
   }, [gameState, currentRoom]);
+
+    // Run autoBattler and show floating numbers
+  useEffect(() => {
+    if (
+      gameState === "autoBattle" &&
+      character &&
+      monster &&
+      handleBattleResult
+    ) {
+      // Clone hero and monster so we don't mutate props
+      const heroCopy = { ...character };
+      const monsterCopy = { ...monster };
+
+      autoBattler(
+        heroCopy,
+        monsterCopy,
+        addToBattleLog,
+        ({ target, amount }) => {
+          // Add a floating number
+          setFloatingNumbers((nums) => [
+            ...nums,
+            { id: Math.random(), target, amount }
+          ]);
+        }
+      );
+      handleBattleResult(heroCopy);
+
+      // Remove floating numbers after animation
+      setTimeout(() => setFloatingNumbers([]), FLOAT_DURATION);
+    }
+
+  }, [gameState]);
 
   if (!character) {
     return <div className={styles.battleStage}>Loading...</div>;
@@ -30,6 +68,14 @@ const BattleScreen = ({
     >
       {/* Hero Section */}
       <div className={styles.heroBox}>
+        {/* Floating number for hero */}
+        {floatingNumbers
+          .filter((n) => n.target === "hero")
+          .map((n) => (
+            <span key={n.id} className={styles.floatingNumber} style={{ left: "30%" }}>
+              -{n.amount}
+            </span>
+          ))}
         <img
           src={character.spriteImage}
           alt={character.name}
@@ -127,6 +173,7 @@ const BattleScreen = ({
         gameState === "battleOutcome") &&
         monster && (
           <div className={styles.monsterBox}>
+            
             <img
               src={monster.image}
               alt={monster.name}
@@ -139,6 +186,14 @@ const BattleScreen = ({
                 Health: {monster.health} / {monster.maxHealth ?? "??"}{" "}
               </div>
             </div>
+            {/* Floating number for monster */}
+            {floatingNumbers
+              .filter((n) => n.target === "monster")
+              .map((n) => (
+                <span key={n.id} className={styles.floatingNumber} style={{ left: "60%" }}>
+                  -{n.amount}
+                </span>
+              ))}
           </div>
         )}
     </div>
