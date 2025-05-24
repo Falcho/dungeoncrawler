@@ -1,9 +1,10 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import autoBattler from "../utils/autoBattler";
 import styles from "./BattleScreen.module.css";
 import barracksImg from "../assets/select-background1.png";
+import BattleScreenInfoText from "./BattleScreenInfoText";
 
-const FLOAT_DURATION = 1250;
+const FLOAT_DURATION = 2500;
 
 const BattleScreen = ({
   gameState,
@@ -13,7 +14,7 @@ const BattleScreen = ({
   dungeon,
   loot,
   handleBattleResult,
-  addToBattleLog
+  addToBattleLog,
 }) => {
   const [bgImg, setBgImg] = useState(barracksImg);
   const [floatingNumbers, setFloatingNumbers] = useState([]);
@@ -26,7 +27,7 @@ const BattleScreen = ({
     }
   }, [gameState, currentRoom]);
 
-    // Run autoBattler and show floating numbers
+  // Run autoBattler and show floating numbers
   useEffect(() => {
     if (
       gameState === "autoBattle" &&
@@ -46,7 +47,7 @@ const BattleScreen = ({
           // Add a floating number
           setFloatingNumbers((nums) => [
             ...nums,
-            { id: Math.random(), target, amount }
+            { id: Math.random(), target, amount },
           ]);
         }
       );
@@ -55,7 +56,6 @@ const BattleScreen = ({
       // Remove floating numbers after animation
       setTimeout(() => setFloatingNumbers([]), FLOAT_DURATION);
     }
-
   }, [gameState]);
 
   if (!character) {
@@ -68,14 +68,6 @@ const BattleScreen = ({
     >
       {/* Hero Section */}
       <div className={styles.heroBox}>
-        {/* Floating number for hero */}
-        {floatingNumbers
-          .filter((n) => n.target === "hero")
-          .map((n) => (
-            <span key={n.id} className={styles.floatingNumber} style={{ left: "30%" }}>
-              -{n.amount}
-            </span>
-          ))}
         <img
           src={character.spriteImage}
           alt={character.name}
@@ -88,83 +80,32 @@ const BattleScreen = ({
             Health: {character.health} / {character.maxHealth ?? "??"}{" "}
           </div>
         </div>
+        {floatingNumbers
+          .filter((n) => n.target === "hero")
+          .map((n) => (
+            <span
+              key={n.id}
+              className={styles.floatingNumber}
+              style={{
+                left: "20%",
+                top: "55%",
+                animation: "floatInHero 1.2s cubic-bezier(.4,1.7,.5,.9) forwards",
+              }}
+            >
+              -{n.amount}
+            </span>
+          ))}
       </div>
 
-      <div className={styles.infoText}>
-        {gameState === "barracks" && (
-          <>
-            <h1>Barracks</h1>
-            <p>This is your barracks, rest up or go on an adventure.</p>
-          </>
-        )}
-        {gameState === "sleeping" && <p>zzz ZZZ zzz ZZZ zzz ZZZ.</p>}
-        {gameState === "startAdventure" && (
-          <>
-            <h1> {dungeon?.name}</h1>
-            <p>{dungeon?.description}</p>
-          </>
-        )}
-        {gameState === "enterRoom" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>{currentRoom?.description}</p>
-          </>
-        )}
-        {gameState === "encounter" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>{currentRoom?.description}</p>
-          </>
-        )}
-        {gameState === "resolveEvent" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>{currentRoom?.description}</p>
-          </>
-        )}
-        {gameState === "battleChoice" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>{currentRoom?.description}</p>
-            {monster && (
-              <p>
-                You encounter a {monster.name} (Lvl {monster.level})!
-              </p>
-            )}
-            {!monster && <p>You are alone in this room.</p>}
-          </>
-        )}
-        {gameState === "autoBattle" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>{currentRoom?.description}</p>
 
-            <p>You fight the {monster?.name}!</p>
-          </>
-        )}
-        {gameState === "battleOutcome" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>{currentRoom?.description}</p>
-            {character?.health <= 0 && <p>You died!</p>}
-            {character?.health > 0 && <p>You won the battle! {monster?.name} was defeated!</p>}
-          </>
-        )}
-        {gameState === "loot" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            {loot && (
-              <p>You found {loot}</p>
-            )}
-          </>
-        )}
-        {gameState === "continueOrHome" && (
-          <>
-            <h1>{currentRoom?.name}</h1>
-            <p>Push on, or go home and rest?</p>
-          </>
-        )}
-      </div>
+        <BattleScreenInfoText
+          gameState={gameState}
+          dungeon={dungeon}
+          currentRoom={currentRoom}
+          loot={loot}
+          character={character}
+          monster={monster}
+        />
 
       {/* Monster Section */}
       {(gameState === "encounter" ||
@@ -173,7 +114,6 @@ const BattleScreen = ({
         gameState === "battleOutcome") &&
         monster && (
           <div className={styles.monsterBox}>
-            
             <img
               src={monster.image}
               alt={monster.name}
@@ -190,7 +130,15 @@ const BattleScreen = ({
             {floatingNumbers
               .filter((n) => n.target === "monster")
               .map((n) => (
-                <span key={n.id} className={styles.floatingNumber} style={{ left: "60%" }}>
+                <span
+                  key={n.id}
+                  className={styles.floatingNumber}
+                  style={{
+                    left: "80%",
+                    top: "25%",
+                    animation: "floatInMonster 1.2s cubic-bezier(.4,1.7,.5,.9) forwards",
+                  }}
+                >
                   -{n.amount}
                 </span>
               ))}

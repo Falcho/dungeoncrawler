@@ -12,10 +12,6 @@
   background-repeat: no-repeat; /* Prevents tiling */
 }
 
-.infoText {
-  padding-left: 1rem;
-  padding-top: 1rem;
-}
 .heroBox {
   position: absolute;
   left: 2.5vw;
@@ -90,26 +86,35 @@
   color: red;
   font-size: 2rem;
   font-weight: bold;
-  animation: floatUp 1s ease-out forwards;
   pointer-events: none;
   z-index: 10;
-  top: 40%; /* Adjust as needed for hero/monster */
-  left: 50%; /* Overwritten inline for hero/monster */
-  transform: translate(-50%, 0);
   text-shadow: 1px 1px 8px #000;
+  /* Remove top/left here, set inline in JSX */
 }
 
-@keyframes floatUp {
+/* Hero: from left to center */
+@keyframes floatInHero {
   0% {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-120%, 0);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -60px);
+    transform: translate(-50%, -120px);
   }
 }
 
+/* Monster: from right to center */
+@keyframes floatInMonster {
+  0% {
+    opacity: 1;
+    transform: translate(40%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -120px);
+  }
+}
 
 @media (max-width: 900px) {
   .hero { width: 16vw; max-width: 80px; }
