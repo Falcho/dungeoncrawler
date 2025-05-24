@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useHero from "../hooks/useHero";
 import useDungeon from "../hooks/useDungeon";
-import styles from "./GameScreen.module.css";
 import CharacterInfo from "../components/CharacterInfo";
 import DungeonMap from "../components/DungeonMap";
 import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
-import autoBattler from "../utils/autoBattler";
-import { useEffect } from "react";
+import styles from "./GameScreen.module.css";
+
 
 // Images
 
@@ -102,7 +101,7 @@ export default function GameScreen() {
 
       case "autoBattle":
         addToBattleLog("Resolving battle...");
-        updateHero(autoBattler(hero, currentRoom.monsters[0], addToBattleLog));
+        
         setGameState("battleOutcome");
         break;
 
