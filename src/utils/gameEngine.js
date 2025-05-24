@@ -1,42 +1,116 @@
-const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+export default function toggleGameState({
+  gameState,
+  action,
+  nextRoomId,
+  hero,
+  dungeon,
+  currentRoom,
+  setCurrentRoom,
+  setGameState,
+  setBattleLog,
+  addToBattleLog,
+  setLoot,
+  updateHero,
+  loot,
+  addLootToInventory
+}) {
+  switch (gameState) {
+    case "barracks":
+      if (dungeon) { console.log(dungeon.name); }
+      if (action === "ADVENTURE") {
+        if (hero.health <= 1) {
+          alert("You need to sleep!");
+        } else {
+          setCurrentRoom(dungeon.rooms[0]);
+          setGameState("startAdventure");
+        }
+      }
+      if (action === "SLEEP") {
+        addToBattleLog("You are sleeping...");
+        setGameState("sleeping");
+      }
+      break;
 
-const calculateDamage = (attacker, defender) => {
-    const baseDamage = getRandomInt(1, attacker.attack);
-    const damageReduction = getRandomInt(0, defender.defense);
-    return Math.max(0, baseDamage - damageReduction);
-};
+    case "startAdventure":
+      setGameState("enterRoom");
+      break;
 
-const battle = (player, monster) => {
-    const playerDamage = calculateDamage(player, monster);
-    const monsterDamage = calculateDamage(monster, player);
+    case "sleeping":
+      updateHero({
+        ...hero,
+        health: hero.maxHealth,
+      });
+      addToBattleLog("You are fully healed!");
+      setGameState("barracks");
+      break;
 
-    player.health -= monsterDamage;
-    monster.health -= playerDamage;
+    case "enterRoom":
+      setGameState("encounter");
+      if (currentRoom.monsters.length) setGameState("battleChoice");
+      if (currentRoom.event) setGameState("resolveEvent");
+      break;
 
-    return {
-        playerHealth: player.health,
-        monsterHealth: monster.health,
-        playerDamage,
-        monsterDamage,
-    };
-};
+    case "encounter":
+      setGameState("resolveEvent");
+      break;
 
-const levelUp = (character) => {
-    character.level += 1;
-    character.attack += 2; // Increase attack power
-    character.defense += 1; // Increase defense
-    character.health += 5; // Increase health
-};
+    case "resolveEvent":
 
-const saveGame = (gameState) => {
-    localStorage.setItem('adventureGame', JSON.stringify(gameState));
-};
+      addToBattleLog("Event resolved!");
+      setGameState("loot");
+      break;
 
-const loadGame = () => {
-    const savedGame = localStorage.getItem('adventureGame');
-    return savedGame ? JSON.parse(savedGame) : null;
-};
+    case "battleChoice":
+      if (action === "FLEE") {
+        addToBattleLog("You fled the battle!");
+        setGameState("barracks");
+      }
+      if (action === "USE_ITEM") {
+        // implement item logic
+      }
+      if (action === "FIGHT") setGameState("autoBattle");
+      break;
 
-export { battle, levelUp, saveGame, loadGame };
+    case "autoBattle":
+      addToBattleLog("Resolving battle...");
+      setGameState("battleOutcome");
+      break;
+
+    case "battleOutcome":
+      if (hero.health > 0) {
+        addToBattleLog("You won the battle!");
+        setLoot(currentRoom.monsters[0].loot.items[0]);
+        setGameState("loot");
+      } else {
+        addToBattleLog("You died!");
+        setGameState("barracks");
+      }
+      break;
+
+    case "loot":
+      if (loot) {
+        addToBattleLog("You found loot:" + loot);
+        addLootToInventory(loot);
+        setLoot(null);
+      }
+      setGameState("continueOrHome");
+      break;
+
+    case "continueOrHome":
+      if (action === "CONTINUE") {
+        let nextRoom = dungeon.rooms.find((room) => room.id === nextRoomId);
+        if (nextRoom) {
+          setCurrentRoom(nextRoom);
+          setGameState("enterRoom");
+        } else {
+          setBattleLog((prev) => [...prev, "No more rooms to explore!"]);
+          setGameState("barracks");
+        }
+      }
+      if (action === "GO_HOME") setGameState("barracks");
+      break;
+
+    default:
+      break;
+  }
+}
