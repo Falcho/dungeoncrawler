@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useHero from "../hooks/useHero";
 import useDungeon from "../hooks/useDungeon";
-import toggleGameState from "../utils/gameEngine";
+import handleGameState from "../utils/gameEngine";
 import CharacterInfo from "../components/CharacterInfo";
 import DungeonMap from "../components/DungeonMap";
 import OptionPrompts from "../components/OptionPrompts";
@@ -36,7 +36,7 @@ export default function GameScreen() {
   };
 
   const handleAction = (action, nextRoomId) => {
-    toggleGameState({
+    handleGameState({
       gameState,
       action,
       nextRoomId,

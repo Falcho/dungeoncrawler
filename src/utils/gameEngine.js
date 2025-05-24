@@ -1,4 +1,4 @@
-export default function toggleGameState({
+export default function handleGameState({
   gameState,
   action,
   nextRoomId,
