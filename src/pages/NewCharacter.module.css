@@ -9,7 +9,7 @@
   border-radius: 8px;
   height: 100vh;
   box-sizing: border-box;
-  background-image: url('../assets/select-background1.png');
+  background-image: url('/select-background1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
