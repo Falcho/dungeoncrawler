@@ -37,11 +37,10 @@ const BattleScreen = ({
     ) {
       // Clone hero and monster so we don't mutate props
       const heroCopy = { ...character };
-      const monsterCopy = { ...monster };
 
-      autoBattler(
+      let afterBattleHero = autoBattler(
         heroCopy,
-        monsterCopy,
+        monster,
         addToBattleLog,
         ({ target, amount }) => {
           // Add a floating number
@@ -51,7 +50,7 @@ const BattleScreen = ({
           ]);
         }
       );
-      handleBattleResult(heroCopy);
+      handleBattleResult(afterBattleHero);
 
       // Remove floating numbers after animation
       setTimeout(() => setFloatingNumbers([]), FLOAT_DURATION);
