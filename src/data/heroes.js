@@ -1,34 +1,18 @@
-import WarriorImg from '../assets/select-HeroWarrior.png'
-import MageImg from '../assets/select-HeroMage.png';
-import RogueImg from '../assets/select-HeroRogue.png';
-import FighterSprite from "../assets/HeroWarrior.png";
-import RogueSprite from "../assets/HeroRogue.png";
-import WizardSprite from "../assets/HeroWizard.png";
-import fullhp from "../assets/fullhp.png";
-import halfhp from "../assets/halfhp.png";
-import lowhp from "../assets/lowhp.png";
-import fullhpRogue from "../assets/fullhpRogue.png";
-import halfhpRogue from "../assets/halfhpRogue.png";
-import lowhpRogue from "../assets/lowhpRogue.png";
-import fullhpWizard from "../assets/fullhpWizard.png";
-import halfhpWizard from "../assets/halfhpWizard.png";
-import lowhpWizard from "../assets/lowhpWizard.png";
-
 const heroes = [
   {
     id: 1,
     class: "Warrior",
     level: 1,
     gold: 0,
-    image: WarriorImg,
-    spriteImage: FighterSprite,
+    image: "/heroes/select-HeroWarrior.png",
+    spriteImage: "/heroes/HeroWarrior.png",
     health: 30,
     maxHealth: 30,
     inventory: [],
     animations: {
-      full: fullhp,
-      half: halfhp,
-      low: lowhp,
+      full: "/heroes/fullhp.png",
+      half: "/heroes/halfhp.png",
+      low: "/heroes/lowhp.png",
     },
     equipment: {
       weapon: "Sword",
@@ -45,15 +29,15 @@ const heroes = [
     class: "Wizard",
     level: 1,
     gold: 0,
-    image: MageImg,
-    spriteImage: WizardSprite,
+    image: "/heroes/select-HeroMage.png",
+    spriteImage: "/heroes/HeroWizard.png",
     health: 30,
     maxHealth: 30,
     inventory: [],
     animations: {
-      full: fullhpWizard,
-      half: halfhpWizard,
-      low: lowhpWizard,
+      full: "/heroes/fullhpWizard.png",
+      half: "/heroes/halfhpWizard.png",
+      low: "/heroes/lowhpWizard.png",
     },
     attributes: {
       strength: 3,
@@ -70,15 +54,15 @@ const heroes = [
     class: "Rogue",
     level: 1,
     gold: 0,
-    image: RogueImg,
-    spriteImage: RogueSprite,
+    image: "/heroes/select-HeroRogue.png",
+    spriteImage: "/heroes/HeroRogue.png",
     health: 30,
     maxHealth: 30,
     inventory: [],
     animations: {
-      full: fullhpRogue,
-      half: halfhpRogue,
-      low: lowhpRogue,
+      full: "/heroes/fullhpRogue.png",
+      half: "/heroes/halfhpRogue.png",
+      low: "/heroes/lowhpRogue.png",
     },
     attributes: {
       strength: 5,
