@@ -8,7 +8,7 @@ const useDungeon = () => {
   const fetchDungeon = () => {
     setLoading(true);
     persistence
-      .fetchData("dungeon")
+      .fetchData("dungeons/random")
       .then((data) => {
         let dungeonIndex = Math.floor(data.length * Math.random());
         setDungeon(data[dungeonIndex]);

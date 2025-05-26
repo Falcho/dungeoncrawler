@@ -12,10 +12,6 @@
   background-repeat: no-repeat; /* Prevents tiling */
 }
 
-.infoText {
-  padding-left: 1rem;
-  padding-top: 1rem;
-}
 .heroBox {
   position: absolute;
   left: 2.5vw;
@@ -84,6 +80,40 @@
   font-size: 0.9em;
   color: #b49c3b;
   font-weight: 500;
+}
+.floatingNumber {
+  position: absolute;
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 10;
+  text-shadow: 1px 1px 8px #000;
+  /* Remove top/left here, set inline in JSX */
+}
+
+/* Hero: from left to center */
+@keyframes floatInHero {
+  0% {
+    opacity: 1;
+    transform: translate(-120%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -120px);
+  }
+}
+
+/* Monster: from right to center */
+@keyframes floatInMonster {
+  0% {
+    opacity: 1;
+    transform: translate(40%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -120px);
+  }
 }
 
 @media (max-width: 900px) {
