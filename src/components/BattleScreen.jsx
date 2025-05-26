@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import autoBattler from "../utils/autoBattler";
 import styles from "./BattleScreen.module.css";
-import barracksImg from "../assets/select-background1.png";
+
 import BattleScreenInfoText from "./BattleScreenInfoText";
 
 const FLOAT_DURATION = 2500;
@@ -16,14 +16,14 @@ const BattleScreen = ({
   handleBattleResult,
   addToBattleLog,
 }) => {
-  const [bgImg, setBgImg] = useState(barracksImg);
+  const [bgImg, setBgImg] = useState("/select-background1.png");
   const [floatingNumbers, setFloatingNumbers] = useState([]);
 
   useEffect(() => {
     if (gameState === "enterRoom" || gameState === "startAdventure") {
       setBgImg(currentRoom?.image);
     } else if (gameState === "barracks") {
-      setBgImg(barracksImg);
+      setBgImg("/select-background1.png");
     }
   }, [gameState, currentRoom]);
 
