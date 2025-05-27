@@ -48,7 +48,6 @@ export default function GameScreen() {
       currentRoom,
       setCurrentRoom,
       setGameState,
-      setBattleLog,
       addToBattleLog,
       setLoot,
       updateHero,
