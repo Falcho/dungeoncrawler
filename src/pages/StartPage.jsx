@@ -20,8 +20,13 @@ const StartPage = () => {
     navigate("/game");
   };
 
+  const handleLogout = () => {
+    persistence.logout();
+    setLoggedIn(false);
+  }
+
   const performLogin = (user, pass) => {
-    persistence.login(user, pass).then((res) => setLoggedIn(true));
+    persistence.login(user, pass).then(() => setLoggedIn(true));
   };
 
   return (
@@ -36,6 +41,9 @@ const StartPage = () => {
           </button>
           <button className={styles.button} onClick={handleLoadSave}>
             Load Save
+          </button>
+          <button className={styles.button} onClick={handleLogout}>
+            Logout
           </button>
         </div>
       )}
