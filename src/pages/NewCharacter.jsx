@@ -7,7 +7,7 @@ import useHero from "../hooks/useHero";
 const NewCharacter = () => {
   const [selectedHero, setSelectedHero] = useState(null);
   const [characterName, setCharacterName] = useState("");
-  const { hero, updateHero } = useHero();
+  const { updateHero } = useHero();
   const navigate = useNavigate();
 
   const handleNameChange = (event) => {
@@ -73,7 +73,7 @@ const NewCharacter = () => {
             value={characterName}
             onChange={handleNameChange}
             placeholder="Enter your character name"
-            className={styles.input}
+            className={styles.inputField}
           />
         </div>
 

@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<StartPage onLoadSave={()=> console.log("Loading game state from localStorage")} />} />
+        <Route path="/" element={<StartPage />} />
         <Route path="/new-character" element={<NewCharacter />} />
         <Route path="/game" element={<GameScreen />} />
       </Routes>
