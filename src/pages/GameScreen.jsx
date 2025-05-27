@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useHero from "../hooks/useHero";
 import useDungeon from "../hooks/useDungeon";
 import handleGameState from "../utils/gameEngine";
@@ -8,6 +9,7 @@ import OptionPrompts from "../components/OptionPrompts";
 import BattleScreen from "../components/BattleScreen";
 import BattleLog from "../components/BattleLog";
 import styles from "./GameScreen.module.css";
+import persistence from "../utils/persistence";
 
 // Images
 
@@ -17,6 +19,7 @@ export default function GameScreen() {
   const [gameState, setGameState] = useState("barracks");
   const [battleLog, setBattleLog] = useState([]);
   const [loot, setLoot] = useState([]);
+  const navigate = useNavigate();
 
   const [currentRoom, setCurrentRoom] = useState(null);
 
@@ -56,7 +59,11 @@ export default function GameScreen() {
 
   useEffect(() => {
     if (gameState === "barracks") {
+      if (persistence.loggedIn()) {
       fetchDungeon();
+    } else {
+        navigate("/");
+      }
     }
   }, [gameState]);
 
