@@ -1,5 +1,6 @@
 const BASE_URL = "https://dungeon.wyrmlings.dk/api/"; // Replace with your actual base URL
 const LOGIN_ENDPOINT = "auth/login"; // Replace with your actual login endpoint
+const VERIFY_ENDPOINT = "auth/verify"; // Replace with your actual verify endpoint
 
 function handleHttpError(result) {
   if (!result.ok) {
@@ -16,7 +17,7 @@ const makeOptions = (method, addToken, body) => {
       Accept: "application/json",
     },
   };
-  if (addToken && loggedIn()) {
+  if (addToken && getToken() !== null) {
     options.headers["Authorization"] = `Bearer ${getToken()}`;
   }
   if (body) {
@@ -31,8 +32,27 @@ const setToken = (token) => {
 const getToken = () => {
   return localStorage.getItem("jwtToken");
 };
+const verifyToken = () => {
+  const options = makeOptions("GET", true);
+  return fetch(BASE_URL + VERIFY_ENDPOINT, options)
+    .then(handleHttpError)
+    .then((data) => {
+      if (data.msg === "Token is valid") {
+        return true;
+      }
+      logout();
+      console.log("Token is invalid, logging out");
+      return false;
+    })
+    .catch((err) => {
+      logout();
+      console.error("Token verification failed", err);
+      return false;
+    });
+};
+
 const loggedIn = () => {
-  const loggedIn = getToken() != null;
+  const loggedIn = (getToken() != null) && verifyToken();
   return loggedIn;
 };
 const logout = () => {
