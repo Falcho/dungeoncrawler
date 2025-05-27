@@ -7,7 +7,7 @@ import useHero from "../hooks/useHero";
 const NewCharacter = () => {
   const [selectedHero, setSelectedHero] = useState(null);
   const [characterName, setCharacterName] = useState("");
-  const { hero, updateHero } = useHero();
+  const { updateHero } = useHero();
   const navigate = useNavigate();
 
   const handleNameChange = (event) => {
