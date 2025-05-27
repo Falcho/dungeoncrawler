@@ -32,7 +32,8 @@ const setToken = (token) => {
 const getToken = () => {
   return localStorage.getItem("jwtToken");
 };
-const verifyToken = () => {
+
+/*const verifyToken = () => {
   const options = makeOptions("GET", true);
   return fetch(BASE_URL + VERIFY_ENDPOINT, options)
     .then(handleHttpError)
@@ -49,10 +50,10 @@ const verifyToken = () => {
       console.error("Token verification failed", err);
       return false;
     });
-};
+};*/
 
 const loggedIn = () => {
-  const loggedIn = (getToken() != null) && verifyToken();
+  const loggedIn = (getToken() != null) ;
   return loggedIn;
 };
 const logout = () => {

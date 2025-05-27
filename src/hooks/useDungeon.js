@@ -8,7 +8,7 @@ const useDungeon = () => {
   const fetchDungeon = () => {
     setLoading(true);
     persistence
-      .fetchData("dungeons/random")
+      .fetchData("dungeons")
       .then((data) => {
         let dungeonIndex = Math.floor(data.length * Math.random());
         setDungeon(data[dungeonIndex]);
@@ -16,6 +16,9 @@ const useDungeon = () => {
       })
       .catch((error) => {
         console.error("Api Error", error);
+        if (error.status === 401) {
+          persistence.logout();
+        }
         setDungeon({
           name: "Training Dungeon",
           description:
