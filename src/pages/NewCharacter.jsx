@@ -73,7 +73,7 @@ const NewCharacter = () => {
             value={characterName}
             onChange={handleNameChange}
             placeholder="Enter your character name"
-            className={styles.input}
+            className={styles.inputField}
           />
         </div>
 
