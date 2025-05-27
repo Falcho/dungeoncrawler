@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './StartPage.module.css';
+import persistence from '../utils/persistence';
+import Login from '../components/Login';
 
-const StartPage = ({ onNewGame, onLoadSave }) => {
+const StartPage = ( ) => {
   const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(persistence.loggedIn());
+  }
+  , []);
 
   const handleNewGame = () => {
-    //onNewGame();
     navigate('/new-character');
   };
 
   const handleLoadSave = () => {
-    onLoadSave();
     navigate('/game');
   }
+
+  const performLogin = (user, pass) => {
+    persistence.login(user, pass).then((res) => setLoggedIn(true));
+  };
+
+
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Welcome to Dungeon Crawler</h1>
+      {!loggedIn ? (
+        <Login login={performLogin} />
+      ) : (
       <div className={styles.buttons}>
         <button className={styles.button} onClick={handleNewGame}>
           Start New Game
@@ -26,6 +41,7 @@ const StartPage = ({ onNewGame, onLoadSave }) => {
           Load Save
         </button>
       </div>
+      )}
     </div>
   );
 };
