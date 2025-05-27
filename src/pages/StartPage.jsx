@@ -28,7 +28,7 @@ const StartPage = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Welcome to Dungeon Crawler</h1>
       {!loggedIn ? (
-        <Login login={performLogin} styles={styles} />
+        <Login login={performLogin} />
       ) : (
         <div className={styles.buttons}>
           <button className={styles.button} onClick={handleNewGame}>
