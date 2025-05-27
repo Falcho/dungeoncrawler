@@ -1,5 +1,5 @@
 const BASE_URL = "https://dungeon.wyrmlings.dk/api/"; // Replace with your actual base URL
-const LOGIN_ENDPOINT = "/auth/login"; // Replace with your actual login endpoint
+const LOGIN_ENDPOINT = "auth/login"; // Replace with your actual login endpoint
 
 function handleHttpError(result) {
   if (!result.ok) {
