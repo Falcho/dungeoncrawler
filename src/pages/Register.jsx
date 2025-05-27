@@ -8,14 +8,23 @@ function Register() {
   const init = { username: "", password: "" };
   const navigate = useNavigate();
   const [registerCredentials, setRegisterCredentials] = useState(init);
+  const [error, setError] = useState("");
 
   const performRegister = (evt) => {
     evt.preventDefault();
+    setError(""); 
     persistence.register(
       registerCredentials.username,
       registerCredentials.password
-    );
-    navigate("/new-character");
+    ).then(() => navigate("/new-character"))
+    .catch((err) => {
+      if (err.status === 400) {
+        setError("Username already exists. Please choose a different username.");
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
+      }
+    });
+
   };
 
   const onChange = (evt) => {
@@ -28,6 +37,7 @@ function Register() {
   return (
     <div className={startPageStyles.container}>
       <h1 className={startPageStyles.title}>Welcome to Dungeon Crawler</h1>
+      {error && <div className={startPageStyles.error}>{error}</div>}
       <div className={styles.loginContainer}>
         <h2>Register</h2>
         <form onSubmit={performRegister}>

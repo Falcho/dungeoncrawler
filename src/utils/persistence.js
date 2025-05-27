@@ -74,7 +74,7 @@ const login = (user, password) => {
 };
 
 const register = (user, password) => {
-  saveData(REGISTER_ENDPOINT, {
+  return saveData(REGISTER_ENDPOINT, {
     username: user,
     password: password,
   }).then((data) => {
