@@ -22,7 +22,7 @@ const CharacterInfo = ({ character }) => {
         <img src={characterImg} alt={character.class} />
       </div>
       <div className={styles.stats}>
-        <strong>Name:</strong> {character.name}
+        <strong>Name:</strong> <span id="characterName">{character.name}</span>
         <br />
         <strong>Class:</strong> {character.class}
         <br />
