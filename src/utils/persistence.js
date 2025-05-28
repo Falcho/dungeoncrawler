@@ -1,6 +1,7 @@
-const BASE_URL = "https://dungeon.wyrmlings.dk/api/"; // Replace with your actual base URL
-const LOGIN_ENDPOINT = "auth/login"; // Replace with your actual login endpoint
-const VERIFY_ENDPOINT = "auth/verify"; // Replace with your actual verify endpoint
+const BASE_URL = "https://dungeon.wyrmlings.dk/api/";
+const LOGIN_ENDPOINT = "auth/login"; 
+const VERIFY_ENDPOINT = "auth/verify";
+const REGISTER_ENDPOINT = "auth/register";
 
 function handleHttpError(result) {
   if (!result.ok) {
@@ -72,6 +73,17 @@ const login = (user, password) => {
     });
 };
 
+const register = (user, password) => {
+  return saveData(REGISTER_ENDPOINT, {
+    username: user,
+    password: password,
+  }).then((data) => {
+    setToken(data.token);
+  });
+};
+
+
+
 const fetchData = (endpoint) => {
   const options = makeOptions("GET", true);
   return fetch(BASE_URL + endpoint, options).then(handleHttpError);
@@ -91,6 +103,7 @@ const persistence = {
     loggedIn,
     login,
     logout,
+    register,
     fetchData,
     saveData,
     deleteData,

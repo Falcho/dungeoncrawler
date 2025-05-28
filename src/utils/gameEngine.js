@@ -7,7 +7,6 @@ export default function handleGameState({
   currentRoom,
   setCurrentRoom,
   setGameState,
-  setBattleLog,
   addToBattleLog,
   setLoot,
   updateHero,
@@ -103,7 +102,7 @@ export default function handleGameState({
           setCurrentRoom(nextRoom);
           setGameState("enterRoom");
         } else {
-          setBattleLog((prev) => [...prev, "No more rooms to explore!"]);
+          addToBattleLog("No more rooms to explore!");
           setGameState("barracks");
         }
       }
